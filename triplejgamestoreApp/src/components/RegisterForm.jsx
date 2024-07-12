@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 
-export default function SignUpForm(setToken) {
+export default function RegisterForm(setToken) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -14,7 +14,7 @@ export default function SignUpForm(setToken) {
             setError("Username must be at least 8 characters long.");
             return;
         }
-        const response = await  fetch('https://fsa-jwt-practice.herokuapp.com/signup', 
+        const response = await  fetch('', 
         { 
           method: "POST", 
           headers: {  "Content-Type": "application/json" }, 
@@ -32,12 +32,12 @@ export default function SignUpForm(setToken) {
     }
   }
 
-//   this is the answer to set token not defined but im still confused
- // This is a placeholder function. You should implement your own token handling logic.
-  // For example, you might store the token in localStorage, sessionStorage, or state management.
-//   function setToken(token) {
-//     localStorage.setItem('authToken', token);
-//   }
+    //   this is the answer to set token not defined but im still confused      
+    // This is a placeholder function. You should implement your own token handling logic.
+    // For example, you might store the token in localStorage, sessionStorage, or state management.
+    //   function setToken(token) {
+    //     localStorage.setItem('authToken', token);
+    //   }
 
   return (
   <>
@@ -50,14 +50,14 @@ export default function SignUpForm(setToken) {
       <input 
       type="text"
       value={username} 
-      onChange={(e) => setUsername(e.target.value)} />
+      onChange={(event) => setUsername(event.target.value)} />
     </label>
     <label>
       Password:
       <input 
       type='password'
       value={password} 
-      onChange={(e) => setPassword(e.target.value)} />
+      onChange={(event) => setPassword(event.target.value)} />
     </label>
     <button>Submit</button>
 

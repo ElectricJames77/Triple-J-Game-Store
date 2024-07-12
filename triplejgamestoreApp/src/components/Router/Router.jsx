@@ -1,16 +1,20 @@
-import {Route, Routes} from 'react-router-dom'
+import { Route, Routes } from "react-router-dom";
+import RegisterForm from "../RegisterForm";
+
 const Router = () => {
-    return (
-      <Routes>
-          <Route path='/' element={<h1>Home page</h1>}/>
-          <Route path='/account' element={<h1>Account details</h1>}/>
-          <Route path='/account/login' element ={<h1>Account login</h1>}/>
-          <Route path='/account/register' element={<h1>Account register</h1>}/>
-          <Route path='/store' element ={<h1>Main store</h1>}/>
-          <Route path='/store/checkout' element={<h1>Checkout</h1>}/>
-          <Route path='/store/:gameid' element ={<h1>Game details</h1>}/>
-      </Routes>
-    )
-  }
+  const [token, setToken] = useState(null);
   
-  export default Router
+  return (
+    <Routes>
+      <Route path="/" element={<h1>Home Page</h1>} />
+      <Route path="/account" element={<h1>Account details</h1>} />
+      <Route path="/account/login" element={<LoginForm token={token} setToken={setToken}/>} />
+      <Route path="/account/register" element={<RegisterForm token={token} setToken={setToken}/>} />
+      <Route path="/store" element={<h1>Main store</h1>} />
+      <Route path="/store/checkout" element={<h1>Checkout</h1>} />
+      <Route path="/store/:gameid" element={<h1>Game details</h1>} />
+    </Routes>
+  );
+};
+
+export default Router;
