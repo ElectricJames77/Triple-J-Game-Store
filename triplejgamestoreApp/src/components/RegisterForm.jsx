@@ -31,14 +31,7 @@ export default function RegisterForm({setToken}) {
         setError(error.message)
     }
   }
-
-    //   this is the answer to set token not defined but im still confused      
-    // This is a placeholder function. You should implement your own token handling logic.
-    // For example, you might store the token in localStorage, sessionStorage, or state management.
-    //   function setToken(token) {
-    //     localStorage.setItem('authToken', token);
-    //   }
-
+  
   return (
   <>
   <h2>Sign Up.</h2> 
