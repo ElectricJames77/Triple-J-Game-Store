@@ -152,20 +152,23 @@ export default function PersistentDrawerLeft() {
 
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-          <FormGroup>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={auth}
-                  onChange={handleChange}
-                  aria-label="login switch"
-                />
-              }
-              label={auth ? 'Logout' : 'Login'}
-            />
-          </FormGroup>
-        <Toolbar>    
 
+        {/* Temporary */}
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={auth}
+                onChange={handleChange}
+                aria-label="login switch"
+              />
+            }
+            label={auth ? 'Logout' : 'Login'}
+          />
+        </FormGroup>
+        {/* Temporary */}
+        
+        <Toolbar>    
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -180,14 +183,14 @@ export default function PersistentDrawerLeft() {
           </Typography>
           {inGamestore && (
             <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </Search>
           )}
           {auth && (
             <div>
