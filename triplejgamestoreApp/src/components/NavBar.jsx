@@ -1,31 +1,33 @@
 import * as React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { styled, useTheme, alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
+
+import Drawer from '@mui/material/Drawer';
+import Divider from '@mui/material/Divider';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
+import CssBaseline from '@mui/material/CssBaseline';
+import MuiAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { useLocation } from 'react-router-dom';
-import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
+
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import SearchIcon from '@mui/icons-material/Search';
 
 const drawerWidth = 240;
 
@@ -116,36 +118,47 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export default function PersistentDrawerLeft() {
-  const theme = useTheme();
+function NavBar() {
+
+  const gameFilters = ['Popular', 'First Person Shooter', 'Platformer', 'Action', 'Adventure', 'Horror'] //array of genres
+  
+  const navigate = useNavigate();
+
   const location = useLocation();
   const path = location.pathname;
-  const inGamestore = path === '/store';
+  const inGamestore = path === '/store';   //used to get the path to conditionally render search bar in store
 
+                                                 //in the serach bar in the game store
+
+  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-
   const handleDrawerClose = () => {
     setOpen(false);
-  };
+  };                                       //Added from drawer component in MUI
 
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
-
   const handleChange = (event) => {
     setAuth(event.target.checked);
   };
-
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleClose = () => {
     setAnchorEl(null);
-  };
+  };                                      //Added by Appbar component in MUI
+
+    const [searchTerm, setSearchTerm] = React.useState('');
+    const handleSearchChange = (event) => {
+      setSearchTerm(event.target.value);
+    };
+    const handleDrawerFilterClick = (searchTerm) => {
+    console.log(searchTerm)
+    navigate(`/store?search=${searchTerm}`)         //This takes the item and gets the genre from the array and puts it
+  }
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -189,6 +202,8 @@ export default function PersistentDrawerLeft() {
               <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ 'aria-label': 'search' }}
+                value={searchTerm}
+                onChange={handleSearchChange}
               />
             </Search>
           )}
@@ -226,6 +241,8 @@ export default function PersistentDrawerLeft() {
           )}
         </Toolbar>
       </AppBar>
+
+
       <Drawer
         sx={{
           width: drawerWidth,
@@ -245,13 +262,15 @@ export default function PersistentDrawerLeft() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+        <List
+          subheader={<li />}
+        >
+          <ListSubheader>Filters</ListSubheader>
+          {gameFilters.map((text) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
+              <ListItemButton
+                onClick={() => handleDrawerFilterClick(text)}
+              >
                 <ListItemText primary={text} />
               </ListItemButton>
             </ListItem>
@@ -259,12 +278,9 @@ export default function PersistentDrawerLeft() {
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          {['All mail', 'Trash', 'Spam'].map((text) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>
             </ListItem>
@@ -277,3 +293,4 @@ export default function PersistentDrawerLeft() {
     </Box>
   );
 }
+export default NavBar
