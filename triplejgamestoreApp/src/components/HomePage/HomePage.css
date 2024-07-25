@@ -1,0 +1,72 @@
+body {
+  max-height: 100px;
+}
+
+.container {
+  overflow: hidden;
+  /* height: 100vh; */
+  /* width: 100vw; */
+  max-width: 1500px;
+  max-height: 400px;
+
+  margin: 0 auto;
+  padding: 0 auto;
+  background: fixed;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: left top;
+}
+
+.sliding-background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100vh;
+  /* width: 100vh; */
+  animation: slide 100s linear;
+}
+
+@keyframes slide {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, -800px, 0); /* The image width */
+  }
+}
+
+#message {
+  margin: 0, auto;
+  /* margin-top: 1cm; */
+  background-color: rgb(41, 41, 45);
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 25px;
+  font-weight: 500;
+  text-align: center;
+  border-radius: 30px;
+  width: 350px;
+  border: solid rgb(24, 55, 113);
+  position: fixed;
+
+  /* z-index: 3; */
+
+  color: white;
+  min-height: 15px;
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;
+}
+
+#header {
+  display: flex;
+  justify-content: center;
+  margin: 0, auto;
+  position: relative;
+  top: px;
+  left: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  float:
+}

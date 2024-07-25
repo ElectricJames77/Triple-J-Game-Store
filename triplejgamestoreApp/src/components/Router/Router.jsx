@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import LoginForm from "../LoginForm";
 import RegisterForm from "../RegisterForm";
-import HomePage from "../HomePage";
+import HomePage from "../HomePage/HomePage";
 
 const Router = () => {
   const [token, setToken] = useState(null);
