@@ -1,4 +1,5 @@
 import * as React from 'react';
+import PropTypes from 'prop-types'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { styled, useTheme, alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -118,7 +119,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-function NavBar() {
+function NavBar({ searchTerm, setSearchTerm }) {
 
   const gameFilters = ['Popular', 'First Person Shooter', 'Platformer', 'Action', 'Adventure', 'Horror'] //array of genres
   
@@ -151,7 +152,7 @@ function NavBar() {
     setAnchorEl(null);
   };                                      //Added by Appbar component in MUI
 
-    const [searchTerm, setSearchTerm] = React.useState('');
+    // const [searchTerm, setSearchTerm] = React.useState('');
     const handleSearchChange = (event) => {
       setSearchTerm(event.target.value);
     };
@@ -292,5 +293,9 @@ function NavBar() {
       </Main>
     </Box>
   );
+}
+NavBar.propTypes = {
+  setSearchTerm: PropTypes.func,
+  searchTerm: PropTypes.string
 }
 export default NavBar

@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import PropTypes from 'prop-types'
 
-const GameStore = () => {
+function GameStore({ searchTerm }) {
     const [games, setAllGames] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null)
     const navigate = useNavigate()
 
-    const API_URL = 'placeholder URL'                   //Remember to replace with database url
+    const API_URL = 'https://triplej-gamestore-2bf9fca17274.herokuapp.com/api/games' //Games URL
 
     useEffect(() => {
         async function getGameData() {
@@ -28,9 +29,11 @@ const GameStore = () => {
     })
     return (
         <>
-            
+            <div>{searchTerm}</div>
         </>
     )
 }
-
+GameStore.propTypes = {
+    searchTerm: PropTypes.string
+  }
 export default GameStore
