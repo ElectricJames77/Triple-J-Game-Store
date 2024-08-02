@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function LoginForm({setToken}) {
+export default function LoginForm({ setToken }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -32,7 +32,7 @@ export default function LoginForm({setToken}) {
 
   return (
     <>
-      <h2>Sign Up.</h2>
+      <h2>Sign In.</h2>
       {error && <p>{error}</p>}
 
       <form onSubmit={handleSubmit}>
@@ -52,7 +52,7 @@ export default function LoginForm({setToken}) {
             onChange={(event) => setPassword(event.target.value)}
           />
         </label>
-        <button>Submit</button>
+        <button>Sign In</button>
       </form>
     </>
   );
