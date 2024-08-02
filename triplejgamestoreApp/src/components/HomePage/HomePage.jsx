@@ -5,6 +5,10 @@ import ImageListItem from "@mui/material/ImageListItem";
 import { useState, useEffect } from "react";
 import { autocompleteClasses } from "@mui/material";
 import "./HomePage.css";
+import { Link } from "react-router-dom";
+import LoginForm from "../LoginForm";
+import RegisterForm from "../RegisterForm";
+// import Gamestore from "../store";
 
 export default function MasonryImageList() {
   const [images, setImages] = useState([]);
@@ -27,25 +31,30 @@ export default function MasonryImageList() {
 
   return (
     <>
-      <div id="header">
+      <div id="header-TripleJ">
         <h1>Triple J</h1>
       </div>
       <div className="container">
         <Box
           sx={{
-            width: "500px",
+            // width: "500px",
             // height: "100vh",
             // overflowY: "hidden",
             opacity: 0.15,
           }}
         >
           <div className="sliding-background">
-            <ImageList variant="woven" cols={3} gap={15}>
+            <ImageList
+              // sx={{ maxWidth: 1500, maxHeight: 500 }}
+              // variant="woven"
+              cols={3}
+              gap={15}
+            >
               {images.map((item) => (
-                <ImageListItem key={item.id}>
+                <ImageListItem className="image" key={item.id}>
                   <img
-                    srcSet={`${item.imageUrl}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                    src={`${item.imageUrl}?w=248&fit=crop&auto=format`}
+                    srcSet={`${item.imageUrl}`}
+                    src={`${item.imageUrl}`}
                     alt={item.title}
                     loading="lazy"
                   />
@@ -54,11 +63,23 @@ export default function MasonryImageList() {
             </ImageList>
           </div>
         </Box>
-        <div id="message">
-          <h2>Sign up</h2>
-          <h2>Sign in</h2>
-          <h6>Sign up Later</h6>
-        </div>
+      </div>
+      <div id="message">
+        <Link to="/account/register">
+          <h3 className="message-words">Sign up</h3>
+        </Link>
+        <Link to="/account/login">
+          <h3 className="message-words">Already have an account? Sign in!</h3>
+        </Link>
+        <Link to="/store">
+          <h6 className="message-words">Sign up Later</h6>
+        </Link>
+        {/* <Switch>
+          <Route path="/account/register" component={Register} />
+          <Route path="/account/login" component={Login} />
+          <Route path="/store" component={Store} />
+          <Route path="/" component={Home} />
+        </Switch> */}
       </div>
     </>
   );
