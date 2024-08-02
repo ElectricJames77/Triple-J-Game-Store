@@ -1,15 +1,24 @@
-import Layout from './components/Layout'
+import React from 'react'
 import Router from './components/Router/Router'
-import { BrowserRouter } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+import NavBar from './components/NavBar'
 import './App.css'
 
 function App() {
+  const location = useLocation()
+  const path = location.pathname
+  const notHome = path !== '/';
+
+  const [searchTerm, setSearchTerm] = React.useState('');
+
+
   return (
-    <BrowserRouter>
-      <Layout>
-        <Router />
-      </Layout>
-    </BrowserRouter>
+    <div className="min-h-screen">
+      {notHome && <NavBar setSearchTerm={ setSearchTerm } searchTerm={ searchTerm }/> /*Header*/}
+      <div className='container mx-auto mt-10'>
+        <Router searchTerm={searchTerm}/>
+      </div>
+    </div>
   )
 }
 
