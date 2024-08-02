@@ -1,6 +1,6 @@
 import { useState } from "react";
+export default function RegisterForm({setToken}) {
 
-export default function RegisterForm(setToken) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -29,7 +29,6 @@ export default function RegisterForm(setToken) {
       setError(error.message);
     }
   }
-
 
   return (
     <>
