@@ -1,5 +1,8 @@
-body {
-  /* max-height: 100px; */
+@font-face {
+  font-family: "Mario";
+  src: local("MyFont"), url(../../assets/SuperMario256.ttf) format("truetype");
+  /* other formats include: 'woff2', 'truetype, 'opentype',
+                              'embedded-opentype', and 'svg' */
 }
 
 .container {
@@ -27,7 +30,7 @@ body {
   left: 0;
   /* height: 100vh; */
   /* width: 100vh; */
-  animation: slide 60s infinite;
+  animation: slide 130s infinite;
 
   z-index: -1;
 }
@@ -55,10 +58,9 @@ body {
   text-align: center;
   border-radius: 30px;
   width: 350px;
-  /* border: solid rgb(24, 55, 113); */
+  border: solid rgba(255, 255, 255, 0.352);
   position: relative;
 
-  color: green;
   display: flex;
   flex-direction: column;
   /* align-items: center; */
@@ -70,6 +72,7 @@ h3 {
 }
 
 .message-words {
+  padding: 0;
   color: white;
   cursor: pointer;
 }
@@ -81,4 +84,7 @@ h3 {
   top: 0;
   left: 0;
   right: 0;
+
+  font-family: Mario;
+  font-size: 30px;
 }
