@@ -2,16 +2,19 @@ import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import LoginForm from "../LoginForm";
 import RegisterForm from "../RegisterForm";
+import HomePage from "../HomePage/HomePage";
 import GameStore from "../GameStore";
 import PropTypes from 'prop-types'
+
 
 const Router = ({ searchTerm }) => {
   const [token, setToken] = useState(null);
 
   return (
     <Routes>
-      <Route path="/" element={<h1>Home Page</h1>} />
 
+      <Route path="/" element={<HomePage /> } />
+      <Route path="/account" element={<h1>Account details</h1>} />
       <Route path="/account/login" element={<LoginForm setToken={setToken} />}/>
       <Route path="/account/register" element={<RegisterForm setToken={setToken} />}/>
 

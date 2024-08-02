@@ -31,7 +31,6 @@ export default function RegisterForm({setToken}) {
         setError(error.message)
     }
   }
-  
   return (
   <>
   <h2>Sign Up.</h2> 
