@@ -1,14 +1,14 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import { useState, useEffect } from "react";
+import Box from "@mui/material/Box";
 import { autocompleteClasses } from "@mui/material";
 import "./HomePage.css";
 import { Link } from "react-router-dom";
 import LoginForm from "../LoginForm";
 import RegisterForm from "../RegisterForm";
-// import Gamestore from "../store";
+import GameStore from "../GameStore";
 
 export default function MasonryImageList() {
   const [images, setImages] = useState([]);

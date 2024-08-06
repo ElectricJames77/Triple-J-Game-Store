@@ -2,7 +2,7 @@ import { useState } from "react";
 
 
 export default function LoginForm({ setToken }) {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
@@ -10,15 +10,11 @@ export default function LoginForm({ setToken }) {
     event.preventDefault();
 
     try {
-      if (username.length < 8) {
-        setError("Username must be at least 8 characters long.");
-        return;
-      }
       const response = await fetch("", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          username: "some-username",
+          email: "some-email",
           password: "super-secret-999",
         }),
       });
@@ -33,18 +29,19 @@ export default function LoginForm({ setToken }) {
 
   return (
     <>
-      <h2>Sign In.</h2>
+      
       {error && <p>{error}</p>}
 
-      <form onSubmit={handleSubmit}>
+      <form id='logInForm' onSubmit={handleSubmit}>
+        <h2>Sign In.</h2><br />
         <label>
-          Username:
+          Email:
           <input
             type="text"
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
           />
-        </label>
+        </label><br />
         <label>
           Password:
           <input
@@ -52,7 +49,7 @@ export default function LoginForm({ setToken }) {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-        </label>
+        </label><br />
         <button>Sign In</button>
       </form>
     </>
