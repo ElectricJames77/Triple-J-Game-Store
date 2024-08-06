@@ -33,9 +33,9 @@ export default function LoginForm({ setToken }) {
       {error && <p>{error}</p>}
 
       <form id='logInForm' onSubmit={handleSubmit}>
-        <h2>Sign In.</h2><br />
+        <h2>Sign In</h2><br />
         <label>
-          Email:
+          Email: 
           <input
             type="text"
             value={email}
@@ -43,7 +43,7 @@ export default function LoginForm({ setToken }) {
           />
         </label><br />
         <label>
-          Password:
+          Password: 
           <input
             type="password"
             value={password}
