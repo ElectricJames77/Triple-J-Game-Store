@@ -9,7 +9,7 @@ export default function LoginForm({ setToken }) {
     event.preventDefault();
 
     try {
-      const response = await fetch("", {
+      const response = await fetch("https://triplej-gamestore-2bf9fca17274.herokuapp.com/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
