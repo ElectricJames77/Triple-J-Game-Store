@@ -4,7 +4,7 @@ import { useState } from "react";
 export default function RegisterForm({ setToken }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userName, setUserName] = useState("");
+  const [username, setUsername] = useState("");
   const [role, setRole] = useState("");
   const [error, setError] = useState(null);
 
@@ -50,8 +50,8 @@ export default function RegisterForm({ setToken }) {
           Username:
           <input
             type="text"
-            value={userName}
-            onChange={(event) => setUserName(event.target.value)}
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
           />
         </label>
         <br />

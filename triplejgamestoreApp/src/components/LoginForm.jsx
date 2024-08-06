@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-
 export default function LoginForm({ setToken }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,27 +28,29 @@ export default function LoginForm({ setToken }) {
 
   return (
     <>
-      
       {error && <p>{error}</p>}
 
-      <form id='logInForm' onSubmit={handleSubmit}>
-        <h2>Sign In</h2><br />
+      <form id="logInForm" onSubmit={handleSubmit}>
+        <h2>Sign In</h2>
+        <br />
         <label>
-          Email: 
+          Email:
           <input
             type="text"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
-        </label><br />
+        </label>
+        <br />
         <label>
-          Password: 
+          Password:
           <input
             type="password"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-        </label><br />
+        </label>
+        <br />
         <button>Sign In</button>
       </form>
     </>
