@@ -13,7 +13,7 @@ const GameOverview = () => {
     useEffect(() => {
         async function getGameData() {
             try {
-                const response = await fetch(`${API_URL}/:${id}`)
+                const response = await fetch(`${API_URL}/${id}`)
                 const data = await response.json()
                 if (!response.ok) {
                     throw new Error("Game not found")
@@ -25,18 +25,49 @@ const GameOverview = () => {
                 setError(error.message)
             }
         }
-        getGameData()
-    })
+        getGameData();
+    }, [])
+
+    const addToCart = async () => {
+        try {
+            const response = await fetch(`${API_URL}/${id}`, {
+                method: "PATCH",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to add to cart');
+            }
+
+            const data = await response.json();
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
   return (
     <>
         {error ? (
             <h1>{error}</h1>
         ) : game ? (
             <>
-                                                        {/* Design the page for a single game overview with possible recommendations forsimilar games and all game data */}
+            <div>
+                <div>
+                    <h2>{game?.title}</h2>
+                    <p>{game?.genre}</p>
+                    <p>{game?.description}</p>
+                </div>
+                
+            </div>
+            {/* Design the page for a single game overview with possible recommendations forsimilar games and all game data */}
             </>
         ) : (
-            <h1>Loading</h1>                            {/* Design the Loading screen */}
+            <div>
+                {loading && <h1>Loading...</h1>}
+            </div>                          
         )}
     </>
   )
