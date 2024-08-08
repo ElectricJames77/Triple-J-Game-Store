@@ -44,8 +44,19 @@ function GameStore({ searchTerm }) {
           return (
             <div key={game.id}>
               <h3>{game.title}</h3>
+              <img
+                src={game.imageUrl}
+                alt={game.title}
+                style={{ width: "200px", height: "200px" }}
+              />
+              <li>
+                <ul>Genre: {game.genre}</ul>
+                <ul>Price: ${game.price}</ul>
+                <ul>Rating: {game.totalRating}/100</ul>
+                <ul># of ratings: {game.ratingsCount}</ul>
+              </li>
               <Link to={`/games/${game.id}`}>
-                <button>See Details</button>
+                <button>View Game</button>
               </Link>
             </div>
           );
@@ -58,3 +69,5 @@ GameStore.propTypes = {
   searchTerm: PropTypes.string,
 };
 export default GameStore;
+
+
