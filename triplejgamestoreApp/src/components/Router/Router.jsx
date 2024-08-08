@@ -4,6 +4,7 @@ import LoginForm from "../LoginForm";
 import RegisterForm from "../RegisterForm";
 import HomePage from "../HomePage/HomePage";
 import GameStore from "../GameStore";
+import GameOverview from "../GameOverview";
 import PropTypes from 'prop-types'
 
 
@@ -19,7 +20,7 @@ const Router = ({ searchTerm }) => {
       <Route path="/account/register" element={<RegisterForm setToken={setToken} />}/>
 
       <Route path="/store" element={<GameStore searchTerm={searchTerm}/>} />{/* Remember to pass searchTerm into gameStore */}
-      <Route path="/store/:gameid" element={<h1>Game details</h1>} />
+      <Route path="/store/:gameid" element={<GameOverview searchTerm={searchTerm}/>} />
       <Route path="/account/library" element={<h1>Owned Games</h1>} />
       <Route path="/account/wishlist" element={<h1>Wishlist</h1>} />
       <Route path="/account/history" element={<h1>History</h1>} />
