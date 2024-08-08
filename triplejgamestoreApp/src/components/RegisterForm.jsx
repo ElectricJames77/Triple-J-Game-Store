@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 // import Select from "react-select";
 
 export default function RegisterForm({ setToken }) {
@@ -7,6 +8,7 @@ export default function RegisterForm({ setToken }) {
   const [username, setUsername] = useState("");
   const [role, setRole] = useState("");
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -16,14 +18,19 @@ export default function RegisterForm({ setToken }) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email: "some-email",
-          password: "super-secret-999",
+          email,
+          password,
+          username,
+          role
         }),
       });
       const result = await response.json();
 
       console.log(result);
-      setToken(result.token);
+      // setToken(result.token);
+      if (result.id) {
+        navigate("/account/login");
+      }
     } catch (error) {
       setError(error.message);
     }
@@ -37,12 +44,10 @@ export default function RegisterForm({ setToken }) {
         <br />
         <label>
           Role:
-          <select name="role" id="roleSelect">
+          <select name="role" id="roleSelect" value={role} onChange={(event) => setRole(event.target.value)}>
             <option value="">--Please choose an option--</option>
             <option value="ADMIN">Admin</option>
             <option value="USER">User</option>
-            value={role}
-            onChange={(event) => setRole(event.target.value)}
           </select>
         </label>
         <br />
