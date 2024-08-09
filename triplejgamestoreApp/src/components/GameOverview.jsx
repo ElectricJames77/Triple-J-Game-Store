@@ -19,7 +19,6 @@ const GameOverview = () => {
                     throw new Error("Game not found")
                 }
                 setGame(data)
-                console.log(data);
                 setLoading(false)
             } catch (error) {
                 setLoading(false)
