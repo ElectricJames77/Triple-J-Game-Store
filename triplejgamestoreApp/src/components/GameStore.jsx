@@ -32,7 +32,7 @@ function GameStore({ searchTerm }) {
   }, []);
 
   const gamesToDisplay = searchTerm
-    ? games.filter((game) => game.title.toLowerCase().includes(searchTerm))
+    ? games.filter((game) => game.title.includes(searchTerm))
     : games;
 
   return (
@@ -42,8 +42,8 @@ function GameStore({ searchTerm }) {
       <div className="gameGroup">
         {gamesToDisplay.map((game) => {
           return (
-            <div key={game.id}>
-              <h3>{game.title}</h3>
+            <div className="image-box" key={game.id}>
+              <h3 className="">{game.title}</h3>
               <img
                 src={game.imageUrl}
                 alt={game.title}
@@ -55,7 +55,7 @@ function GameStore({ searchTerm }) {
                 <ul>Rating: {game.totalRating}/100</ul>
                 <ul># of ratings: {game.ratingsCount}</ul>
               </li>
-              <Link to={`/games/${game.id}`}>
+              <Link to={`/store/${game.id}`}>
                 <button>View Game</button>
               </Link>
             </div>
@@ -69,5 +69,3 @@ GameStore.propTypes = {
   searchTerm: PropTypes.string,
 };
 export default GameStore;
-
-

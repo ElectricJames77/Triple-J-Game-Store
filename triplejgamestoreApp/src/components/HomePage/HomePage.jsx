@@ -34,35 +34,27 @@ export default function MasonryImageList() {
       <div id="header-TripleJ">
         <h1>Triple J</h1>
       </div>
-      <div className="container">
-        <Box
-          sx={{
-            // width: "500px",
-            // height: "100vh",
-            // overflowY: "hidden",
-            opacity: 0.15,
-          }}
-        >
-          <div className="sliding-background">
-            <ImageList
-              // sx={{ maxWidth: 1500, maxHeight: 500 }}
-              // variant="woven"
-              cols={3}
-              gap={15}
-            >
-              {images.map((item) => (
-                <ImageListItem className="image" key={item.id}>
-                  <img
-                    srcSet={`${item.imageUrl}`}
-                    src={`${item.imageUrl}`}
-                    alt={item.title}
-                    loading="lazy"
-                  />
-                </ImageListItem>
-              ))}
-            </ImageList>
-          </div>
-        </Box>
+      <div className="home-container">
+        <div className="sliding-background">
+          <ImageList
+            // sx={{ maxWidth: 1500, maxHeight: 500 }}
+            // variant="woven"
+            cols={3}
+            gap={15}
+            // sx={{ opacity: 0.85 }}
+          >
+            {images.map((item) => (
+              <ImageListItem className="image" key={item.id}>
+                <img
+                  srcSet={`${item.imageUrl}`}
+                  src={`${item.imageUrl}`}
+                  alt={item.title}
+                  loading="lazy"
+                />
+              </ImageListItem>
+            ))}
+          </ImageList>
+        </div>
       </div>
       <div id="message">
         <Link to="/account/register">

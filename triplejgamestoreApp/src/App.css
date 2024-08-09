@@ -35,3 +35,18 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+.gameGroup {
+  display: flex;
+  flex-wrap: wrap;
+  /* gap: 18px; */
+  margin: auto;
+  /* grid-template-columns: auto, auto, auto; */
+}
+
+.image-box {
+  
+  width: 250px;
+  overflow: none;
+  padding: 8px;
+}
