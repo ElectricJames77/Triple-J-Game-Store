@@ -18,7 +18,8 @@ const GameOverview = () => {
                 if (!response.ok) {
                     throw new Error("Game not found")
                 }
-                setGame(data.data)
+                setGame(data)
+                console.log(data);
                 setLoading(false)
             } catch (error) {
                 setLoading(false)
