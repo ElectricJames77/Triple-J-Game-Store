@@ -42,21 +42,29 @@ function GameStore({ searchTerm }) {
       <div className="gameGroup">
         {gamesToDisplay.map((game) => {
           return (
-            <div className="image-box" key={game.id}>
+            <div className="gameSinglur" key={game.id}>
               <h3 className="">{game.title}</h3>
               <img
+                className="gameImage"
                 src={game.imageUrl}
                 alt={game.title}
-                style={{ width: "200px", height: "200px" }}
+                style={{ width: "300px" }}
               />
-              <li>
-                <ul>Genre: {game.genre}</ul>
-                <ul>Price: ${game.price}</ul>
-                <ul>Rating: {game.totalRating}/100</ul>
-                <ul># of ratings: {game.ratingsCount}</ul>
-              </li>
+              <div>
+                Genre: {game.genre}
+                <br />
+                Rating: {game.totalRating}/100
+                <br /># of ratings: {game.ratingsCount}
+                <br />
+                Price: ${game.price}
+                <br />
+              </div>
+              {/* change the button to the section being clickable */}
               <Link to={`/store/${game.id}`}>
-                <button>View Game</button>
+                <button id="viewGameBttn">View Game</button>
+              </Link>
+              <Link to={`/account/cart`}>
+                <button id="addToCartBttn">Add to Cart</button>
               </Link>
             </div>
           );

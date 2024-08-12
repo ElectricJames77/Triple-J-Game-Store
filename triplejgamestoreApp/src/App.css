@@ -37,16 +37,63 @@
 }
 
 .gameGroup {
-  display: flex;
-  flex-wrap: wrap;
-  /* gap: 18px; */
-  margin: auto;
-  /* grid-template-columns: auto, auto, auto; */
+  display: grid;
+  width: auto;
+  height: auto;
+  grid-template-columns: 1fr, 1fr, 1fr;
+  place-items: center;
 }
 
-.image-box {
-  
-  width: 250px;
+.gameSinglur {
+  border: 2px solid black;
+  text-align: center;
+  align-items: center;
   overflow: none;
   padding: 8px;
+  border-radius: 15px;
+  margin: 5px;
+  width: 400px;
+  display: grid;
+  grid-template-columns: 1fr, 1fr, 1fr;
+}
+
+#addToCartBttn {
+  color: black;
+  border: 2px solid rgb(19, 19, 19);
+  min-width: 100px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 15px;
+}
+
+#viewGameBttn {
+  color: black;
+  border: 2px solid rgb(19, 19, 19);
+  min-width: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 15px;
+}
+
+#addToCartBttn:hover {
+  background-color: rgba(0, 0, 0, 0.706);
+  color: white;
+  cursor: pointer;
+}
+
+#viewGameBttn:hover {
+  background-color: rgba(0, 0, 0, 0.706);
+  color: white;
+  cursor: pointer;
+}
+
+#gameImage {
+  align-items: center;
+  place-items: center;
+  display: flex;
+  justify-content: center;
 }
