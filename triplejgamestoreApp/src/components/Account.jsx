@@ -1,5 +1,7 @@
 import React, { useEffect, useState} from 'react';
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 
 const Account = () => {
     const [account, setAccount] = useState(null);
@@ -52,8 +54,8 @@ const Account = () => {
 
     return (
         <div>
-            <p>Account Details</p>
-            <p>Name: {account?.username}</p>
+            <h2>Account Details</h2>
+            <p>Username: {account?.username}</p>
             <p>Email: {account?.email}</p>
             {account?.cart?.length > 0 ? (
                 account?.cart?.map((game) => {
@@ -67,6 +69,9 @@ const Account = () => {
             ) : (
                 <p>Your cart is empty.</p>
             )}
+            <Link to={`/store`}>
+            <button>Go To Store</button>
+            </Link>
         </div>
     );
 };
