@@ -81,17 +81,6 @@ export function CartProvider({ children }) {
     );
   }
 
-  //   {
-  //     "id": 1,
-  //     "title": "Blood Strike",
-  //     "price": 60,
-  //     "description": "Charge into fast paced combat in modes such as Battle Royale, Squad Fight or Hot Zone alone or with friends. Blood Strike offers a id range of playable Strikers, each with a unique active and passive ability letting you deploy drones, shield walls and everything in between. Customize your weapons to your liking and get ready to prove that you have what it takes to come out on top!",
-  //     "imageUrl": "https://images.igdb.com/igdb/image/upload/t_thumb/co7dqq.jpg",
-  //     "genre": "Shooter",
-  //     "totalRating": 100,
-  //     "ratingsCount": 6
-  // },
-
   function getTotalCost() {
     let totalCost = 0;
     cartProducts.map((cartItem) => {
@@ -110,7 +99,11 @@ export function CartProvider({ children }) {
   };
 
   return (
-    <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>
+    <CartContext.Provider
+      value={(addOneToCart, removeOneFromCart, contextValue)}
+    >
+      {children}
+    </CartContext.Provider>
   );
 }
 

@@ -1,122 +1,81 @@
 import { CartContext } from "../../CartContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import {
+  fetchCartGames,
+  addGameToCart,
+  removeGameFromCart,
+} from "../../LinkURL";
 
-function CartProduct(props) {
-  const cart = useContext(CartContext);
-  const id = props.id;
-  const quantity = props.quantity;
-  const productData = cartItem(id);
+const dummyData = [
+  {
+    id: 1,
+    title: "Blood Strike",
+    price: 60,
+    description:
+      "Charge into fast paced combat in modes such as Battle Royale, Squad Fight or Hot Zone alone or with friends. Blood Strike offers a id range of playable Strikers, each with a unique active and passive ability letting you deploy drones, shield walls and everything in between. Customize your weapons to your liking and get ready to prove that you have what it takes to come out on top!",
+    imageUrl: "https://images.igdb.com/igdb/image/upload/t_thumb/co7dqq.jpg",
+    genre: "Shooter",
+    totalRating: 100,
+    ratingsCount: 6,
+  },
+  {
+    id: 2,
+    title: "Paper Mario: The Thousand-Year Door",
+    price: 40,
+    description:
+      "A remake of the second game in the Paper Mario series, originally released for the Nintendo GameCube.\n\nTurn the page and join Mario and friends in an RPG adventure to disimageUrl the legendary treasure behind the ancient Thousand-Year Door. Will Mario complete his papery quest, or will he crumple under the pressure?",
+    imageUrl: "https://images.igdb.com/igdb/image/upload/t_thumb/co83vd.jpg",
+    genre: "RPG",
+    totalRating: 99,
+    ratingsCount: 7,
+  },
+  {
+    id: 3,
+    title: "Outer Wilds: Archaeologist Edition",
+    price: 60,
+    description:
+      "Outer Wilds: Archaeologist Edition contains Outer Wilds base game and Echoes of the Eye expansion.",
+    imageUrl: "https://images.igdb.com/igdb/image/upload/t_thumb/co3yjh.jpg",
+    genre: "Adventure",
+    totalRating: 99,
+    ratingsCount: 8,
+  },
+];
+
+function CartProduct() {
+  const { cart, addOneToCart, removeOneFromCart, getTotalCost } =
+    useContext(CartContext);
 
   return (
     <>
-      <div>
-        <p>Account Details</p>
-        <p>Name: {account?.username}</p>
-        <p>Email: {account?.email}</p>
-        {account?.cart?.length > 0 ? (
-          account?.cart?.map((game) => {
-            return (
-              <div key={game.id}>
-                <h2>{game.title}</h2>
-                <p>{game.price}</p>
-              </div>
-            );
-          })
-        ) : (
-          <p>Your cart is empty.</p>
-        )}
+      {dummyData.map((item) => {
+        return (
+          <div className="cart-box" key={item.id}>
+            <h3>{item.title}</h3>
+            <img
+              className="gameImage-cart"
+              src={item.imageUrl}
+              alt={item.title}
+              style={{ width: "150px" }}
+            />
+            <p>Price: ${item.price}</p>
+            <p>Quantity</p>
+            <div>
+              <button onClick={removeOneFromCart} id="removeOneBttn">
+                -
+              </button>
+              <button onClick={addOneToCart} id="addOneBttn">
+                +
+              </button>
+            </div>
+          </div>
+        );
+      })}
+      <div className="total-cost">
+        <h3>Total Cost: ${getTotalCost()}</h3>
       </div>
-
-      {/* <h3>{productData.title}</h3>
-      <p>{quantity} total</p>
-      <p>${(quantity * productData.price).toFixed(2)}</p>
-      <Button onClick={() => cart.deleteFromCart(id)}>Remove</Button>
-      <hr></hr> */}
     </>
   );
 }
 
 export default CartProduct;
-
-// View Users Cart URL: (GET)
-//https://triplej-gamestore-2bf9fca17274.herokuapp.com/api/cart/id
-
-// Add Game to Cart URL: (POST)
-//https://triplej-gamestore-2bf9fca17274.herokuapp.com/api/cart
-
-// Delete Game from Cart URL: (DELETE)
-//https://triplej-gamestore-2bf9fca17274.herokuapp.com/api/cart 
-
-//  ignore code below
-
-// import React from "react";
-
-// const Account = () => {
-//     const [account, setAccount] = useState(null);
-//     const [loading, setLoading] = useState(true);
-//     const [error, setError] = useState(null);
-//     const { id } = useParams();
-//     const API_URL =
-//     "https://triplej-gamestore-2bf9fca17274.herokuapp.com/api/users"; //Games URL
-
-//     useEffect(() => {
-//         const fetchAccount = async () => {
-//             const token = localStorage.getItem('token');
-//             if (!token) {
-//                 setLoading(false);
-//                 return;
-//             }
-//             try {
-//                 const response = await fetch(`${API_URL}/${id}`, {
-//                     headers: {
-//                         Authorization: `Bearer ${token}`,
-//                     },
-//                 });
-//                 if (!response.ok) {
-//                     throw new Error('Failed to fetch account details');
-//                 }
-//                 const accountData = await response.json();
-//                 setAccount(accountData);
-//                 setLoading(false);
-//             } catch (error) {
-//                 setError(error);
-//                 setLoading(false);
-//             }
-//         };
-//         fetchAccount();
-//     }, []);
-
-//     if (loading) {
-//         return <div className="flex justify-center items-center h-screen">Loading...</div>;
-//     }
-//     if (error) {
-//         return <div className="flex justify-center items-center h-screen">Error: {error.message}</div>;
-//     }
-//     if (!account) {
-//         return (
-//             <div className="flex justify-center items-center h-screen">
-//                 <p>You are not logged in. Please log in or create an account.</p>
-//             </div>
-//         );
-//     }
-
-//     return (
-//         <div>
-//             <p>Account Details</p>
-//             <p>Name: {account?.username}</p>
-//             <p>Email: {account?.email}</p>
-//             {account?.cart?.length > 0 ? (
-//                 account?.cart?.map((game) => {
-//                     return (
-//                         <div key={game.id}>
-//                             <h2>{game.title}</h2>
-//                             <p>{game.price}</p>
-//                         </div>
-//                     );
-//                 })
-//             ) : (
-//                 <p>Your cart is empty.</p>
-//             )}
-//         </div>
-//     );
-// };
