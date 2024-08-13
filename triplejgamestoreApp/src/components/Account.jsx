@@ -1,6 +1,7 @@
 import React, { useEffect, useState} from 'react';
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Logout from './AuthHooks/Logout';
 
 
 const Account = () => {
@@ -69,6 +70,7 @@ const Account = () => {
             ) : (
                 <p>Your cart is empty.</p>
             )}
+            <Logout />
             <Link to={`/store`}>
             <button>Go To Store</button>
             </Link>
