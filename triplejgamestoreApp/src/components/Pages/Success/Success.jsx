@@ -1,3 +1,4 @@
+import "./Success.css"
 
 function Success() {
     return (

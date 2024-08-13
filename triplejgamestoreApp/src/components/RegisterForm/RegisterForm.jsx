@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./RegisterForm.css"
 // import Select from "react-select";
 
 export default function RegisterForm({ setToken }) {

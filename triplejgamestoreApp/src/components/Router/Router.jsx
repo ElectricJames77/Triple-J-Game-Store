@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import LoginForm from "../LoginForm";
-import RegisterForm from "../RegisterForm";
+import LoginForm from "../LoginForm/LoginForm";
+import RegisterForm from "../RegisterForm/RegisterForm";
 import HomePage from "../HomePage/HomePage";
-import GameStore from "../GameStore";
+import GameStore from "../GameStore/GameStore";
 import GameOverview from "../GameOverview";
 import Account from "../Account";
 import PropTypes from "prop-types";
-import Cart from "../Pages/Cart";
+import Cart from "../Pages/Cart/Cart";
+import Success from "../Pages/Success/Success";
+import Cancel from "../Pages/Cancel/Cancel";
 
 const Router = ({ searchTerm }) => {
   const [token, setToken] = useState(null);

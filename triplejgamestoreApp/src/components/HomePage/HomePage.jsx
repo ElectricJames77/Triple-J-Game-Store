@@ -6,9 +6,9 @@ import Box from "@mui/material/Box";
 import { autocompleteClasses } from "@mui/material";
 import "./HomePage.css";
 import { Link } from "react-router-dom";
-import LoginForm from "../LoginForm";
-import RegisterForm from "../RegisterForm";
-import GameStore from "../GameStore";
+import LoginForm from "../LoginForm/LoginForm";
+import RegisterForm from "../RegisterForm/RegisterForm";
+import GameStore from "../GameStore/GameStore";
 
 export default function MasonryImageList() {
   const [images, setImages] = useState([]);
@@ -60,11 +60,13 @@ export default function MasonryImageList() {
         <Link to="/account/register">
           <h3 className="message-words">Sign up</h3>
         </Link>
+        <br />
         <Link to="/account/login">
           <h3 className="message-words">Already have an account? Sign in!</h3>
         </Link>
+        <br />
         <Link to="/store">
-          <h6 className="message-words">Sign up Later</h6>
+          <h6 className="message-words">Sign up Later, Go To Store</h6>
         </Link>
         {/* <Switch>
           <Route path="/account/register" component={Register} />

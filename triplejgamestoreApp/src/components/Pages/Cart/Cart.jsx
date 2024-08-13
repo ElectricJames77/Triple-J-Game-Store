@@ -1,10 +1,11 @@
-import { CartContext } from "../../CartContext";
+import "./Cart.css"
+import { CartContext } from "../../../CartContext";
 import { useContext, useEffect, useState } from "react";
 import {
   fetchCartGames,
   addGameToCart,
   removeGameFromCart,
-} from "../../LinkURL";
+} from "../../../LinkURL";
 
 const dummyData = [
   {
@@ -43,36 +44,44 @@ const dummyData = [
 ];
 
 function CartProduct() {
-  const { cart, addOneToCart, removeOneFromCart, getTotalCost } =
-    useContext(CartContext);
+  const {
+    cart,
+    addOneToCart,
+    removeOneFromCart,
+    getTotalCost,
+    deleteFromCart,
+  } = useContext(CartContext);
 
   return (
     <>
-      {dummyData.map((item) => {
-        return (
-          <div className="cart-box" key={item.id}>
-            <h3>{item.title}</h3>
-            <img
-              className="gameImage-cart"
-              src={item.imageUrl}
-              alt={item.title}
-              style={{ width: "150px" }}
-            />
-            <p>Price: ${item.price}</p>
-            <p>Quantity</p>
-            <div>
-              <button onClick={removeOneFromCart} id="removeOneBttn">
-                -
-              </button>
-              <button onClick={addOneToCart} id="addOneBttn">
-                +
-              </button>
+      <div className="Cart-container">
+        <h1>My Cart</h1>
+        {dummyData.map((item) => {
+          return (
+            <div className="cart-box" key={item.id}>
+              <h3>{item.title}</h3>
+              <img
+                className="gameImage-cart"
+                src={item.imageUrl}
+                alt={item.title}
+                style={{ width: "150px" }}
+              />
+              <p>Price: ${item.price}</p>
+              <p>Quantity</p>
+              <div>
+                <button onClick={removeOneFromCart} id="removeOneBttn">
+                  -
+                </button>
+                <button onClick={addOneToCart} id="addOneBttn">
+                  +
+                </button>
+              </div>
             </div>
-          </div>
-        );
-      })}
-      <div className="total-cost">
-        <h3>Total Cost: ${getTotalCost()}</h3>
+          );
+        })}
+        <div className="total-cost">
+          <h3>Total Cost: ${getTotalCost()}</h3>
+        </div>
       </div>
     </>
   );

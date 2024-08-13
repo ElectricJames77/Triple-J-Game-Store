@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import "./GameStore.css"
 
 function GameStore({ searchTerm }) {
   const [games, setAllGames] = useState([]);
@@ -37,38 +38,40 @@ function GameStore({ searchTerm }) {
 
   return (
     <>
-      <div>{searchTerm}</div>
+      <div className="gamestore-container">
+        <div>{searchTerm}</div>
 
-      <div className="gameGroup">
-        {gamesToDisplay.map((game) => {
-          return (
-            <div className="gameSinglur" key={game.id}>
-              <h3 className="">{game.title}</h3>
-              <img
-                className="gameImage"
-                src={game.imageUrl}
-                alt={game.title}
-                style={{ width: "300px" }}
-              />
-              <div>
-                Genre: {game.genre}
-                <br />
-                Rating: {game.totalRating}/100
-                <br /># of ratings: {game.ratingsCount}
-                <br />
-                Price: ${game.price}
-                <br />
+        <div className="gameGroup">
+          {gamesToDisplay.map((game) => {
+            return (
+              <div className="gameSinglur" key={game.id}>
+                <h3 className="">{game.title}</h3>
+                <img
+                  className="gameImage"
+                  src={game.imageUrl}
+                  alt={game.title}
+                  style={{ width: "300px" }}
+                />
+                <div>
+                  Genre: {game.genre}
+                  <br />
+                  Rating: {game.totalRating}/100
+                  <br />Number of ratings: {game.ratingsCount}
+                  <br />
+                  Price: ${game.price}
+                  <br />
+                </div>
+                {/* change the button to the section being clickable */}
+                <Link to={`/store/${game.id}`}>
+                  <button id="viewGameBttn">View Game</button>
+                </Link>
+                <Link to={`/account/cart`}>
+                  <button id="addToCartBttn">Add to Cart</button>
+                </Link>
               </div>
-              {/* change the button to the section being clickable */}
-              <Link to={`/store/${game.id}`}>
-                <button id="viewGameBttn">View Game</button>
-              </Link>
-              <Link to={`/account/cart`}>
-                <button id="addToCartBttn">Add to Cart</button>
-              </Link>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </>
   );

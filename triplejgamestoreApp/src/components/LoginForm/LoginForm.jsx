@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./LoginForm.css"
 
 
 export default function LoginForm({ setToken }) {

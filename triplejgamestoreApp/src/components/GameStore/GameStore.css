@@ -1,0 +1,84 @@
+.gamestore-container {
+  display: flex;
+  justify-content: center;
+  color: black;
+  background: #000000;
+  background: -moz-linear-gradient(left, #000000 0%, #ffffff 50%, #000000 100%);
+  background: -webkit-linear-gradient(
+    left,
+    #000000 0%,
+    #ffffff 50%,
+    #000000 100%
+  );
+  background: linear-gradient(to right, #000000 0%, #ffffff 50%, #000000 100%);
+}
+
+.gameGroup {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  width: auto;
+  max-width: 1400px;
+  /* height: auto; */
+  grid-template-columns: 1fr, 1fr, 1fr;
+  place-items: center;
+}
+
+.gameSinglur {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 2px solid black;
+  text-align: center;
+  align-items: center;
+  overflow: none;
+  padding: 8px;
+  border-radius: 15px;
+  margin: 5px;
+  width: 430px;
+  display: grid;
+  grid-template-columns: 1fr, 1fr, 1fr;
+}
+
+#addToCartBttn {
+  background-color: aliceblue;
+  color: black;
+  border: 2px solid rgb(19, 19, 19);
+  min-width: 100px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 15px;
+}
+
+#viewGameBttn {
+  background-color: aliceblue;
+  color: black;
+  border: 2px solid rgb(19, 19, 19);
+  min-width: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 15px;
+}
+
+#addToCartBttn:hover {
+  background-color: rgba(0, 0, 0, 0.706);
+  color: white;
+  cursor: pointer;
+}
+
+#viewGameBttn:hover {
+  background-color: rgba(0, 0, 0, 0.706);
+  color: white;
+  cursor: pointer;
+}
+
+#gameImage {
+  align-items: center;
+  place-items: center;
+  display: flex;
+  justify-content: center;
+}
