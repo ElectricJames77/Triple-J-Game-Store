@@ -35,7 +35,7 @@ background: linear-gradient(to right, #313131 0%, #FFFFFF 50%, #313131 100%);
   grid-template-columns: 1fr, 1fr, 1fr;
 }
 
-#addToCartBttn {
+.addToCartBttn {
   background-color: aliceblue;
   color: black;
   border: 2px solid rgb(19, 19, 19);
@@ -77,3 +77,4 @@ background: linear-gradient(to right, #313131 0%, #FFFFFF 50%, #313131 100%);
   display: flex;
   justify-content: center;
 }
+

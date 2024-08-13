@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import "./GameStore.css"
+import AuthHook from "../AuthHooks/AuthHook";
+import { CartContext } from "../../CartContext";
+import "./GameStore.css";
 
 function GameStore({ searchTerm }) {
   const [games, setAllGames] = useState([]);
@@ -10,6 +12,8 @@ function GameStore({ searchTerm }) {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const [searchParam, setSearchParam] = useState("");
+  const { isLoggedIn } = AuthHook();
+  const { addOneToCart } = useContext(CartContext);
 
   const API_URL =
     "https://triplej-gamestore-2bf9fca17274.herokuapp.com/api/games"; //Games URL
@@ -56,17 +60,24 @@ function GameStore({ searchTerm }) {
                   Genre: {game.genre}
                   <br />
                   Rating: {game.totalRating}/100
-                  <br />Number of ratings: {game.ratingsCount}
+                  <br />
+                  Number of ratings: {game.ratingsCount}
                   <br />
                   Price: ${game.price}
                   <br />
                 </div>
                 {/* change the button to the section being clickable */}
+
                 <Link to={`/store/${game.id}`}>
                   <button id="viewGameBttn">View Game</button>
                 </Link>
+
                 <Link to={`/account/cart`}>
-                  <button id="addToCartBttn">Add to Cart</button>
+                  {isLoggedIn && (
+                    <button onClick={addOneToCart} className="addToCartBttn">
+                      Add to Cart
+                    </button>
+                  )}
                 </Link>
               </div>
             );

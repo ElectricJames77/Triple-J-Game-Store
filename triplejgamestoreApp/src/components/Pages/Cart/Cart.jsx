@@ -1,4 +1,4 @@
-import "./Cart.css"
+import "./Cart.css";
 import { CartContext } from "../../../CartContext";
 import { useContext, useEffect, useState } from "react";
 import {
@@ -59,23 +59,26 @@ function CartProduct() {
         {dummyData.map((item) => {
           return (
             <div className="cart-box" key={item.id}>
-              <h3>{item.title}</h3>
+              <div className="cartInfo-box">
+                <h3>{item.title}</h3>
+
+                <p>Price: ${item.price}</p>
+                <p>Quantity:</p>
+                <div>
+                  <button onClick={removeOneFromCart} id="removeOneBttn">
+                    -
+                  </button>
+                  <button onClick={addOneToCart} id="addOneBttn">
+                    +
+                  </button>
+                </div>
+              </div>
               <img
                 className="gameImage-cart"
                 src={item.imageUrl}
                 alt={item.title}
-                style={{ width: "150px" }}
+                style={{ width: "125px" }}
               />
-              <p>Price: ${item.price}</p>
-              <p>Quantity</p>
-              <div>
-                <button onClick={removeOneFromCart} id="removeOneBttn">
-                  -
-                </button>
-                <button onClick={addOneToCart} id="addOneBttn">
-                  +
-                </button>
-              </div>
             </div>
           );
         })}

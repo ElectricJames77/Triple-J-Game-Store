@@ -19,14 +19,25 @@
 
 .cart-box {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  width: 400px;
-  border: white solid 0.5px;
+  justify-content: space-between  ;
+  width: 700px;
+  /* border: white solid 0.5px; */
   padding: 10px;
   margin: 5px;
 }
 
 .total-cost {
   padding-top: 5px;
+}
+
+.cartInfo-box {
+  float: left;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.gameImage-cart {
+  float: right;
 }
