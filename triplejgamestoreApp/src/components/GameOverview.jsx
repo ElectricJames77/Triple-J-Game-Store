@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import AuthHook  from "./AuthHooks/AuthHook";
 
 
 const GameOverview = () => {
@@ -10,6 +11,7 @@ const GameOverview = () => {
     const [loading, setLoading] = useState(true);
     const { id } = useParams();
     const [message, setMessage] = useState(null);
+    const { isLoggedIn } = AuthHook();
     const navigate = useNavigate();
     const API_URL = 'https://triplej-gamestore-2bf9fca17274.herokuapp.com/api/games' //Games URL
 
@@ -70,7 +72,7 @@ const GameOverview = () => {
                         <ul># of Ratings: {game?.ratingsCount}</ul>
                     </li>
                     <p>Description: {game?.description}</p>
-                    <button onClick={addToCart} className="checkoutBtn">Add to Cart</button>
+                    {isLoggedIn && <button onClick={addToCart} className="checkoutBtn">Add to Cart</button>}
                     {message && <h1 className="successMessage">{message}</h1>}
                     <Link to={`/store/`}>
                         <button>Back To All Games</button>
