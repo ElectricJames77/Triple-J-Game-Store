@@ -1,0 +1,16 @@
+#signUpForm {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: end;
+    height: 20vh;
+    box-shadow: 1px 3px 3px 3px rgba(0, 0, 0, 0.122);
+    border: 2px solid rgba(0, 0, 0, 0.101);
+    flex-direction: column;
+    align-items: center;
+    height: 40vh;
+    width: 300px;
+    margin-bottom: 20%;
+    margin-left: auto;
+    margin-right: auto;
+  }

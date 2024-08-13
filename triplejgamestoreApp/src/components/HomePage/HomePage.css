@@ -30,7 +30,7 @@
   left: 0;
   /* height: 100vh; */
   /* width: 100vh; */
-  animation: slide 130s infinite;
+  animation: slide 140s infinite;
 
   z-index: -1;
 }
@@ -40,7 +40,7 @@
     transform: translate3d(0, 0%, 0);
   }
   50% {
-    transform: translate3d(0, -500%, 0); /* The image width */
+    transform: translate3d(0, -430%, 0); /* The image width */
   }
   100% {
     transform: translate3d(0, 0%, 0);
@@ -49,12 +49,11 @@
 
 #message {
   margin: auto;
-  margin-top: 300px;
+  margin-top: 240px;
   /* margin-left: 0;
   margin-right: 0; */
 
-  background-color: rgba(41, 41, 45, 0.53);
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  background-color: rgba(41, 41, 45, 0.781);
   font-size: 25px;
   font-weight: 500;
   text-align: center;
@@ -69,6 +68,18 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  word-spacing: 2px;
+  color: #1110ff;
+  font-weight: 700;
+  text-decoration: none solid rgb(68, 68, 68);
+  font-style: normal;
+  font-variant: small-caps;
+  text-transform: none;
+  padding: 5px;
 }
 
 h3 {
@@ -79,21 +90,24 @@ h3 {
   padding: 0;
   color: white;
   cursor: pointer;
+  padding: 2px;
 }
 
 #header-TripleJ {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
+  margin-top: 100px;
   /* position: absolute;
   top: 0;
   left: 0;
   right: 0; */
-  color: coral;
+  color: rgb(255, 127, 80);
 
   font-family: Mario;
-  font-size: 30px;
+  font-size: 70px;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: black;
 }
 
 .MuiImageList-root {
@@ -101,5 +115,5 @@ h3 {
 }
 
 .image {
-  opacity: 0.8;
+  opacity: 0.6;
 }
