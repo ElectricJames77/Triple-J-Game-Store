@@ -1,3 +1,7 @@
+.loginForm-container {
+  margin-top: 100px;
+}
+
 #logInForm {
     display: flex;
     text-align: center;

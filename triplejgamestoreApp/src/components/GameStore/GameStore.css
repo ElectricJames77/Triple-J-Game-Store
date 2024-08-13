@@ -2,15 +2,10 @@
   display: flex;
   justify-content: center;
   color: black;
-  background: #000000;
-  background: -moz-linear-gradient(left, #000000 0%, #ffffff 50%, #000000 100%);
-  background: -webkit-linear-gradient(
-    left,
-    #000000 0%,
-    #ffffff 50%,
-    #000000 100%
-  );
-  background: linear-gradient(to right, #000000 0%, #ffffff 50%, #000000 100%);
+  background: #313131;
+background: -moz-linear-gradient(left, #313131 0%, #FFFFFF 50%, #313131 100%);
+background: -webkit-linear-gradient(left, #313131 0%, #FFFFFF 50%, #313131 100%);
+background: linear-gradient(to right, #313131 0%, #FFFFFF 50%, #313131 100%);
 }
 
 .gameGroup {
@@ -25,10 +20,10 @@
 }
 
 .gameSinglur {
-  display:flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
-  border: 2px solid black;
+  border: 1px solid black;
   text-align: center;
   align-items: center;
   overflow: none;
