@@ -37,7 +37,6 @@
   padding: 10px;
   margin: 5px;
   /* border-radius: 10px; */
-  
 }
 
 .total-cost {
@@ -56,9 +55,9 @@
 }
 
 .smallerContainer-cart {
-   border: white groove 3px;
-   border-radius: 10px;
-   padding: 10px;
+  border: white groove 3px;
+  border-radius: 10px;
+  padding: 10px;
 }
 
 .title-cart {
