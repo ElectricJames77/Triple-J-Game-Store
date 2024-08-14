@@ -66,7 +66,7 @@ export default function MasonryImageList() {
         </Link>
         <br />
         <Link to="/store">
-          <h6 className="message-words">Sign up Later, Go To Store</h6>
+          <h5 className="message-words">Sign up Later, Go To Store</h5>
         </Link>
         {/* <Switch>
           <Route path="/account/register" component={Register} />
