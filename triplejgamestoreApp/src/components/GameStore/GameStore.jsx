@@ -49,14 +49,16 @@ function GameStore({ searchTerm }) {
           {gamesToDisplay.map((game) => {
             return (
               <div className="gameSinglur" key={game.id}>
-                <h3 className="">{game.title}</h3>
-                <img
-                  className="gameImage"
-                  src={game.imageUrl}
-                  alt={game.title}
-                  style={{ width: "300px" }}
-                />
-                <div>
+                <h3 className="gameTitle-store">{game.title}</h3>
+                <div className="gameImageContainer-store">
+                  <img
+                    className="gameImage-store"
+                    src={game.imageUrl}
+                    alt={game.title}
+                    style={{ width: "200px" }}
+                  />
+                </div>
+                <div className="gameInfo-store">
                   Genre: {game.genre}
                   <br />
                   Rating: {game.totalRating}/100

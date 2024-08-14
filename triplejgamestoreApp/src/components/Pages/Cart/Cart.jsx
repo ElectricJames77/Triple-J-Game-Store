@@ -54,36 +54,38 @@ function CartProduct() {
 
   return (
     <>
-      <div className="Cart-container">
-        <h1>My Cart</h1>
-        {dummyData.map((item) => {
-          return (
-            <div className="cart-box" key={item.id}>
-              <div className="cartInfo-box">
-                <h3>{item.title}</h3>
+      <div className="cart-container">
+        <div className="smallerContainer-cart">
+          <h1 className="title-cart">My Cart</h1>
+          {dummyData.map((item) => {
+            return (
+              <div className="cart-box" key={item.id}>
+                <div className="cartInfo-box">
+                  <h3>{item.title}</h3>
 
-                <p>Price: ${item.price}</p>
-                <p>Quantity:</p>
-                <div>
-                  <button onClick={removeOneFromCart} id="removeOneBttn">
-                    -
-                  </button>
-                  <button onClick={addOneToCart} id="addOneBttn">
-                    +
-                  </button>
+                  <p>Price: ${item.price}</p>
+                  <p>Quantity:</p>
+                  <div>
+                    <button onClick={removeOneFromCart} id="removeOneBttn">
+                      -
+                    </button>
+                    <button onClick={addOneToCart} id="addOneBttn">
+                      +
+                    </button>
+                  </div>
                 </div>
+                <img
+                  className="gameImage-cart"
+                  src={item.imageUrl}
+                  alt={item.title}
+                  style={{ width: "125px" }}
+                />
               </div>
-              <img
-                className="gameImage-cart"
-                src={item.imageUrl}
-                alt={item.title}
-                style={{ width: "125px" }}
-              />
-            </div>
-          );
-        })}
-        <div className="total-cost">
-          <h3>Total Cost: ${getTotalCost()}</h3>
+            );
+          })}
+          <div className="total-cost">
+            <h3>Total Cost: ${getTotalCost()}</h3>
+          </div>
         </div>
       </div>
     </>

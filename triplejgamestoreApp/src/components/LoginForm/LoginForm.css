@@ -1,20 +1,44 @@
 .loginForm-container {
-  margin-top: 100px;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  background: #003664;
+  background: -moz-linear-gradient(top, #003664 0%, #909090 50%, #003664 100%);
+  background: -webkit-linear-gradient(
+    top,
+    #003664 0%,
+    #909090 50%,
+    #003664 100%
+  );
+  background: linear-gradient(to bottom, #003664 0%, #909090 50%, #003664 100%);
 }
 
 #logInForm {
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: end;
-    height: 20vh;
-    box-shadow: 1px 3px 3px 3px rgba(0, 0, 0, 0.122);
-    border: 2px solid rgba(0, 0, 0, 0.101);
-    flex-direction: column;
-    align-items: center;
-    height: 40vh;
-    width: 300px;
-    margin-bottom: 20%;
-    margin-left: auto;
-    margin-right: auto;
-  }
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: end;
+  font-weight: 400;
+  background: #555555;
+  background: -moz-linear-gradient(top, #555555 0%, #0e0e0e 50%, #555555 100%);
+  background: -webkit-linear-gradient(
+    top,
+    #555555 0%,
+    #0e0e0e 50%,
+    #555555 100%
+  );
+  background: linear-gradient(to bottom, #555555 0%, #0e0e0e 50%, #555555 100%);
+  background: linear-gradient(to bottom, #ffffff 0%, #c8c8c8 50%, #ffffff 100%);
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.294);
+  border: 2px solid rgba(0, 0, 0, 0.101);
+  border-radius: 10px;
+  flex-direction: column;
+  align-items: center;
+  height: auto;
+  width: auto;
+  padding: 30px;
+  margin-bottom: 5%;
+  margin-left: auto;
+  margin-right: auto;
+}

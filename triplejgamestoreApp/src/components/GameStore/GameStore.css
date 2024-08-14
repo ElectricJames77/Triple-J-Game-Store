@@ -1,11 +1,11 @@
 .gamestore-container {
   display: flex;
   justify-content: center;
-  color: black;
-  background: #313131;
-background: -moz-linear-gradient(left, #313131 0%, #FFFFFF 50%, #313131 100%);
-background: -webkit-linear-gradient(left, #313131 0%, #FFFFFF 50%, #313131 100%);
-background: linear-gradient(to right, #313131 0%, #FFFFFF 50%, #313131 100%);
+  color: rgb(255, 255, 255);
+  background: #555555;
+background: -moz-radial-gradient(center, #555555 0%, #003F74 50%, #555555 100%);
+background: -webkit-radial-gradient(center, #555555 0%, #003F74 50%, #555555 100%);
+background: radial-gradient(ellipse at center, #555555 0%, #003F74 50%, #555555 100%);
 }
 
 .gameGroup {
@@ -17,27 +17,35 @@ background: linear-gradient(to right, #313131 0%, #FFFFFF 50%, #313131 100%);
   /* height: auto; */
   grid-template-columns: 1fr, 1fr, 1fr;
   place-items: center;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  font-variant: small-caps;
 }
 
 .gameSinglur {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border: 1px solid black;
+  font-size: large;
+  border: 1px groove white;
   text-align: center;
   align-items: center;
   overflow: none;
   padding: 8px;
   border-radius: 15px;
   margin: 5px;
-  width: 430px;
+  height: 500px;
+  width: 330px;
   display: grid;
   grid-template-columns: 1fr, 1fr, 1fr;
 }
 
 .addToCartBttn {
-  background-color: aliceblue;
+  background-color: rgba(0, 0, 0, 0.414);
+  /* background-color: aliceblue; */
   color: black;
+  color: white;
   border: 2px solid rgb(19, 19, 19);
   min-width: 100px;
   padding-left: 10px;
@@ -48,8 +56,10 @@ background: linear-gradient(to right, #313131 0%, #FFFFFF 50%, #313131 100%);
 }
 
 #viewGameBttn {
-  background-color: aliceblue;
+  background-color: rgba(0, 0, 0, 0.414);
+  /* background-color: aliceblue; */
   color: black;
+  color: white;
   border: 2px solid rgb(19, 19, 19);
   min-width: 10px;
   padding-left: 10px;
@@ -59,7 +69,7 @@ background: linear-gradient(to right, #313131 0%, #FFFFFF 50%, #313131 100%);
   border-radius: 15px;
 }
 
-#addToCartBttn:hover {
+.addToCartBttn:hover {
   background-color: rgba(0, 0, 0, 0.706);
   color: white;
   cursor: pointer;
@@ -71,10 +81,25 @@ background: linear-gradient(to right, #313131 0%, #FFFFFF 50%, #313131 100%);
   cursor: pointer;
 }
 
-#gameImage {
-  align-items: center;
-  place-items: center;
+#gameImageContainer-store {
   display: flex;
   justify-content: center;
+  align-items: center;
+  place-items: center;
+  width: 500px;
 }
+
+.gameTitle-store {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  font-size:larger;
+  
+}
+
+.gameInfo-store {
+
+}
+
 
