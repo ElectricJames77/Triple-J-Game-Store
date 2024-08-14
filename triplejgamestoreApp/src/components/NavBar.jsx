@@ -199,7 +199,7 @@ function NavBar({ searchTerm, setSearchTerm }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Link to="/store">Triple J Gamestore</Link>
+            <Link to="/">Triple J Gamestore</Link>
           </Typography>
           {inGamestore && (
             <Search>

@@ -62,7 +62,7 @@ export default function MasonryImageList() {
         </Link>
         <br />
         <Link to="/account/login">
-          <h3 className="message-words">Already have an account? Sign in!</h3>
+          <h3 className="message-words">Already have an account? <br></br>Sign in!</h3>
         </Link>
         <br />
         <Link to="/store">
