@@ -2,7 +2,9 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import AuthHook  from "./AuthHooks/AuthHook";
+import AuthHook  from "../AuthHooks/AuthHook";
+import "./GameOverview.css";
+
 
 
 const GameOverview = () => {
@@ -61,24 +63,31 @@ const GameOverview = () => {
             <h1>{error}</h1>
         ) : game ? (
             <>
-            <div className="singleGameGroup">
-                <div className="image-box">
-                    <img src={game.imageUrl} alt={game.title} style={{ width: "200px", height: "200px"}} />
-                    <h3>Game Name: {game?.title}</h3>
-                    <li>
-                        <ul>Genre: {game?.genre}</ul>
-                        <ul>Price: ${game?.price}</ul>
-                        <ul>Rating: {game.totalRating}</ul>
-                        <ul># of Ratings: {game?.ratingsCount}</ul>
-                    </li>
-                    <p>Description: {game?.description}</p>
-                    {isLoggedIn && <button onClick={addToCart} className="checkoutBtn">Add to Cart</button>}
-                    {message && <h1 className="successMessage">{message}</h1>}
-                    <Link to={`/store/`}>
-                        <button>Back To All Games</button>
-                    </Link>
-                </div>
+            <div className="singleGamestore-container">
+                <div className="singleGameGroup">
+                    <div className="gameSingle">
+                        <div className="gameImageContainer-single">
+                            <img className="gameImage-single"src={game.imageUrl} alt={game.title} style={{ width: "200px", height: "200px"}} />
+                        </div>
+                        <h3 className="gameTitle-single">{game?.title}</h3>
+                        <h4 className="gameDetails-single">Game Details</h4>
+                        <ul className="gameInfo-single">
+                            <li>Genre: {game?.genre}</li>
+                            <li>Price: ${game?.price}</li>
+                            <li>Rating: {game.totalRating}</li>
+                            <li># of Ratings: {game?.ratingsCount}</li>
+                        </ul>
+                        <div className="gameDescription">
+                            <p>Description: {game?.description}</p>
+                        </div>
+                        {isLoggedIn && <button onClick={addToCart} className="addToCartBttn">Add to Cart</button>}
+                        {message && <h1 className="successMessage">{message}</h1>}
+                        <Link to={`/store/`}>
+                            <button id="viewGameBttn">Back To All Games</button>
+                        </Link>
+                    </div>
                 
+                </div>
             </div>
             {/* Design the page for a single game overview with possible recommendations for similar games and all game data */}
             </>
