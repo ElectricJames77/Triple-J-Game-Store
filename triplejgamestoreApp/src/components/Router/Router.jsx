@@ -5,7 +5,7 @@ import RegisterForm from "../RegisterForm/RegisterForm";
 import HomePage from "../HomePage/HomePage";
 import GameStore from "../GameStore/GameStore";
 import GameOverview from "../GameOverview/GameOverview";
-import Account from "../Account";
+import Account from "../Account/Account";
 import PropTypes from "prop-types";
 import Cart from "../Pages/Cart/Cart";
 import Success from "../Pages/Success/Success";
