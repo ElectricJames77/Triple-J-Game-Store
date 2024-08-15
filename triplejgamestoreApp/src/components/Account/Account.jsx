@@ -1,7 +1,9 @@
 import React, { useEffect, useState} from 'react';
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Logout from './AuthHooks/Logout';
+import Logout from '../AuthHooks/Logout';
+import './Account.css';
+
 
 
 const Account = () => {
@@ -31,6 +33,7 @@ const Account = () => {
                 const accountData = await response.json();
                 setAccount(accountData);
                 setLoading(false);
+                console.log(accountData);
             } catch (error) {
                 setError(error);
                 setLoading(false);
@@ -54,26 +57,38 @@ const Account = () => {
     }
 
     return (
-        <div>
-            <h2>Account Details</h2>
-            <p>Username: {account?.username}</p>
-            <p>Email: {account?.email}</p>
-            {account?.cart?.length > 0 ? (
-                account?.cart?.map((game) => {
-                    return (
-                        <div key={game.id}>
-                            <h2>{game.title}</h2>
-                            <p>{game.price}</p>
-                        </div>
-                    );
-                })
-            ) : (
-                <p>Your cart is empty.</p>
-            )}
-            <Logout />
-            <Link to={`/store`}>
-            <button>Go To Store</button>
-            </Link>
+        <div className="account-container">
+            <h2 className="account-header">Account Details</h2>
+            <div className="account-details">
+                <div className="profile-section">
+                    <h3 className="profile-header">Profile</h3>
+                    <p className="profile-info"> Username: {account?.username}</p>
+                    <p className="profile-info">Email: {account?.email}</p>
+                </div>
+                <div className="cart-section">
+                    <h3 className="cart-header">Cart</h3>
+                    {account?.cart?.games?.length > 0 ? (
+                        <ul className="cart-list">
+                            {account?.cart?.games?.map((game) => {
+                                return (
+                                    <li key={game.id} className="cart-item">
+                                        <h4 className="cart-item-title">{game.gameId}</h4>
+                                        <p className="cart-item-price">{game.price}</p>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    ) : (
+                        <p className="cart-empty">Your cart is empty.</p>
+                    )}
+                </div>
+            </div>
+                <div className="account-actions">
+                    <Logout />
+                    <Link to={`/store`}>
+                    <button className="store-button">Go To Store</button>
+                    </Link>
+                </div>
         </div>
     );
 };

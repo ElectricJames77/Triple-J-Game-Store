@@ -1,0 +1,91 @@
+.account-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  width: 80%;
+  margin: 0 auto;
+  color: white;
+  background: #555555;
+  background: -moz-radial-gradient(
+    center,
+    #555555 0%,
+    #003f74 50%,
+    #555555 100%
+  );
+  background: -webkit-radial-gradient(
+    center,
+    #555555 0%,
+    #003f74 50%,
+    #555555 100%
+  );
+  background: radial-gradient(
+    ellipse at center,
+    #555555 0%,
+    #003f74 50%,
+    #555555 100%
+  );
+}
+
+.account-header {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.account-details {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.profile-section,
+.cart-section {
+  width: 48%;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.profile-header,
+.cart-header {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.profile-info,
+.cart-item-title,
+.cart-item-price,
+.cart-empty {
+  margin-bottom: 5px;
+}
+
+.cart-list {
+  list-style: none;
+  padding: 0;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.account-actions {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.store-button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
