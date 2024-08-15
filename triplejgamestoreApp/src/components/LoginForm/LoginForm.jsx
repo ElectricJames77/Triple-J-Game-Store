@@ -36,6 +36,7 @@ export default function LoginForm({ setToken }) {
       if (result.accessToken) {
         setIsLoggedIn(true);
         localStorage.setItem("token", result.accessToken);
+        localStorage.setItem("userId", result.userId);
         navigate("/store");
       } else {
         throw new Error("Invalid credentials, Failed To Login");
@@ -45,6 +46,7 @@ export default function LoginForm({ setToken }) {
       setError(error.message);
       setIsLoggedIn(false);
       localStorage.removeItem("token");
+      localStorage.removeItem("userId");
     }
   }
 

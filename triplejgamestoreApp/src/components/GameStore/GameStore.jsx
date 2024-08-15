@@ -43,8 +43,6 @@ function GameStore({ searchTerm }) {
   return (
     <>
       <div className="gamestore-container">
-        <div>{searchTerm}</div>
-
         <div className="gameGroup">
           {gamesToDisplay.map((game) => {
             return (
