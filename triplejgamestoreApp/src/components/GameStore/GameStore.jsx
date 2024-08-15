@@ -42,6 +42,7 @@ function GameStore({ searchTerm }) {
 
   return (
     <>
+      <h1>Triple J</h1>
       <div className="gamestore-container">
         <div className="gameGroup">
           {gamesToDisplay.map((game) => {

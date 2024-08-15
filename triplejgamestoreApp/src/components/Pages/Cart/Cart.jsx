@@ -7,42 +7,6 @@ import {
   removeGameFromCart,
 } from "../../../LinkURL";
 
-const dummyData = [
-  {
-    id: 1,
-    title: "Blood Strike",
-    price: 60,
-    description:
-      "Charge into fast paced combat in modes such as Battle Royale, Squad Fight or Hot Zone alone or with friends. Blood Strike offers a id range of playable Strikers, each with a unique active and passive ability letting you deploy drones, shield walls and everything in between. Customize your weapons to your liking and get ready to prove that you have what it takes to come out on top!",
-    imageUrl: "https://images.igdb.com/igdb/image/upload/t_thumb/co7dqq.jpg",
-    genre: "Shooter",
-    totalRating: 100,
-    ratingsCount: 6,
-  },
-  {
-    id: 2,
-    title: "Paper Mario: The Thousand-Year Door",
-    price: 40,
-    description:
-      "A remake of the second game in the Paper Mario series, originally released for the Nintendo GameCube.\n\nTurn the page and join Mario and friends in an RPG adventure to disimageUrl the legendary treasure behind the ancient Thousand-Year Door. Will Mario complete his papery quest, or will he crumple under the pressure?",
-    imageUrl: "https://images.igdb.com/igdb/image/upload/t_thumb/co83vd.jpg",
-    genre: "RPG",
-    totalRating: 99,
-    ratingsCount: 7,
-  },
-  {
-    id: 3,
-    title: "Outer Wilds: Archaeologist Edition",
-    price: 60,
-    description:
-      "Outer Wilds: Archaeologist Edition contains Outer Wilds base game and Echoes of the Eye expansion.",
-    imageUrl: "https://images.igdb.com/igdb/image/upload/t_thumb/co3yjh.jpg",
-    genre: "Adventure",
-    totalRating: 99,
-    ratingsCount: 8,
-  },
-];
-
 function CartProduct() {
   const {
     cart,
@@ -52,26 +16,59 @@ function CartProduct() {
     deleteFromCart,
   } = useContext(CartContext);
 
+  const [cartGames, setCartGames] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { id } = useParams();
+
+  useEffect(() => {
+    async function fetchGames(id) {
+      try {
+        const data = await fetchCartGames(id);
+        setCartGames(data);
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching cart games", err);
+        setError(err);
+        setLoading(false);
+      }
+    }
+
+    fetchGames(id);
+  }, []);
+
   return (
     <>
       <div className="cart-container">
         <div className="smallerContainer-cart">
           <h1 className="title-cart">My Cart</h1>
-          {dummyData.map((item) => {
+          {cartGames.map((item) => {
             return (
               <div className="cart-box" key={item.id}>
                 <div className="cartInfo-box">
                   <h3>{item.title}</h3>
 
                   <p>Price: ${item.price}</p>
-                  <p>Quantity:</p>
+                  <p>Quantity:${item.quantity}</p>
                   <div>
-                    <button onClick={removeOneFromCart} id="removeOneBttn">
+                    <button
+                      onClick={() => removeOneFromCart(item.id)}
+                      id="removeOneBttn"
+                    >
+                      -
+                    </button>
+                    <button
+                      onClick={() => addOneToCart(item.id)}
+                      id="addOneBttn"
+                    >
+                      +
+                    </button>
+                    {/* <button onClick={removeOneFromCart} id="removeOneBttn">
                       -
                     </button>
                     <button onClick={addOneToCart} id="addOneBttn">
                       +
-                    </button>
+                    </button> */}
                   </div>
                 </div>
                 <img

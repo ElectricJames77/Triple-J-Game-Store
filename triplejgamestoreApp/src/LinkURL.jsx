@@ -1,7 +1,6 @@
 //Base URL:
 //https://triplej-gamestore-2bf9fca17274.herokuapp.com/
 
-
 //Games URL: (GET)
 //https://triplej-gamestore-2bf9fca17274.herokuapp.com/api/games
 
@@ -92,10 +91,25 @@ async function createUsername() {
 //View Users Cart URL: (GET)
 //https://triplej-gamestore-2bf9fca17274.herokuapp.com/api/cart/id
 
-async function fetchCartGames(id) {
+async function fetchCartGames(userId) {
+  console.log(localStorage.getItem("token"));
   try {
     //this awaits the response from the API and pauses until it receives a response.
-    const response = await fetch(`API_URL/cart/${id}`);
+    const response = await fetch(
+      `https://triplej-gamestore-2bf9fca17274.herokuapp.com/api/cart/${userId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    if (!response.ok) {
+      throw new Error(
+        `Error fetching cart games: ${response.status} ${response.statusText}`
+      );
+    }
     //once received this takes the JSON data and extracts it
     const data = await response.json();
     //this returns the information from the JSON.
@@ -149,10 +163,7 @@ async function removeGameFromCart(Id) {
     const data = await response.json();
     return data;
   } catch (err) {
-    console.error(
-      `Whoops, trouble removing game #${Id} from the roster!`,
-      err
-    );
+    console.error(`Whoops, trouble removing game #${Id} from the roster!`, err);
   }
 }
 
