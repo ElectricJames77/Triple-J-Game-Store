@@ -42,7 +42,10 @@ function GameStore({ searchTerm }) {
 
   return (
     <>
+      <h1>Triple J</h1>
       <div className="gamestore-container">
+        {/* <div id="headerTripleJ-store"> */}
+        {/* </div> */}
         <div>{searchTerm}</div>
 
         <div className="gameGroup">

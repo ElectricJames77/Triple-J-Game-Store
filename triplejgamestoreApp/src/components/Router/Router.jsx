@@ -37,7 +37,7 @@ const Router = ({ searchTerm }) => {
       <Route path="/account/wishlist" element={<h1>Wishlist</h1>} />
       <Route path="/account/history" element={<h1>History</h1>} />
 
-      <Route path="/account/cart" element={<Cart searchTerm={searchTerm} />} />
+      <Route path="/account/cart/:userId" element={<Cart searchTerm={searchTerm} />} />
       {/* <Route path="/account/checkout" element={<Checkout />} /> */}
       {/* <Route path="/account/success" element={<Success />} /> */}
       {/* <Route path="/account/cancel" element={<Cancel />} /> */}

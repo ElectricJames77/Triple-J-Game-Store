@@ -3,9 +3,24 @@
   justify-content: center;
   color: rgb(255, 255, 255);
   background: #555555;
-background: -moz-radial-gradient(center, #555555 0%, #003F74 50%, #555555 100%);
-background: -webkit-radial-gradient(center, #555555 0%, #003F74 50%, #555555 100%);
-background: radial-gradient(ellipse at center, #555555 0%, #003F74 50%, #555555 100%);
+  background: -moz-radial-gradient(
+    center,
+    #555555 0%,
+    #003f74 50%,
+    #555555 100%
+  );
+  background: -webkit-radial-gradient(
+    center,
+    #555555 0%,
+    #003f74 50%,
+    #555555 100%
+  );
+  background: radial-gradient(
+    ellipse at center,
+    #555555 0%,
+    #003f74 50%,
+    #555555 100%
+  );
 }
 
 .gameGroup {
@@ -82,11 +97,6 @@ background: radial-gradient(ellipse at center, #555555 0%, #003F74 50%, #555555 
 }
 
 #gameImageContainer-store {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  place-items: center;
-  width: 500px;
 }
 
 .gameTitle-store {
@@ -94,12 +104,13 @@ background: radial-gradient(ellipse at center, #555555 0%, #003F74 50%, #555555 
   justify-content: center;
   align-items: center;
   height: 10vh;
-  font-size:larger;
-  
+  font-size: larger;
 }
 
 .gameInfo-store {
-
 }
 
-
+#headerTripleJ-store {
+  /* display: block; */
+  width: 100%;
+}
