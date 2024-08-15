@@ -6,10 +6,6 @@ import { styled, useTheme, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
-
 import Drawer from "@mui/material/Drawer";
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
@@ -32,7 +28,6 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import SearchIcon from "@mui/icons-material/Search";
 
 import { Link } from "react-router-dom";
-import { Token } from "@mui/icons-material";
 
 const drawerWidth = 240;
 
@@ -123,9 +118,8 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-function NavBar({ searchTerm, setSearchTerm }) {
+function NavBar({ searchTerm, setSearchTerm , filterType, setFilterType}) {
   const gameFilters = [
-    "Popular",
     "First Person Shooter",
     "Platformer",
     "Action",
@@ -168,8 +162,14 @@ function NavBar({ searchTerm, setSearchTerm }) {
     setSearchTerm(event.target.value);
   };
   const handleDrawerFilterClick = (searchTerm) => {
+    setFilterType("Genre")
     setSearchTerm(searchTerm);
   };
+
+  const handleFilterClick = (filterType) => {
+    console.log(filterType)
+    setFilterType(filterType)
+  }
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -228,20 +228,25 @@ function NavBar({ searchTerm, setSearchTerm }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Link to="/">Triple J Gamestore</Link>
+            <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>
+              Triple J Gamestore
+            </Link>
           </Typography>
           {inGamestore && (
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
-                value={searchTerm}
-                onChange={handleSearchChange}
-              />
-            </Search>
+            <>
+              <Typography variant="h6" component="div">{`Filter By: ${filterType}`}</Typography>
+              <Search>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Search…"
+                  inputProps={{ "aria-label": "search" }}
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                />
+              </Search>
+            </>
           )}
           {auth && (
             <div>
@@ -304,7 +309,7 @@ function NavBar({ searchTerm, setSearchTerm }) {
         </DrawerHeader>
         <Divider />
         <List subheader={<li />}>
-          <ListSubheader>Filters</ListSubheader>
+          <ListSubheader>Genre</ListSubheader>
           {gameFilters.map((text) => (
             <ListItem key={text} disablePadding>
               <ListItemButton onClick={() => handleDrawerFilterClick(text)}>
@@ -314,10 +319,11 @@ function NavBar({ searchTerm, setSearchTerm }) {
           ))}
         </List>
         <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text) => (
+        <List subheader={<li/>}>
+        <ListSubheader>Filter By</ListSubheader>
+          {["Name", "Genre", "Price"].map((text) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={() => handleFilterClick(text)}>
                 <ListItemText primary={text} />
               </ListItemButton>
             </ListItem>
@@ -333,5 +339,7 @@ function NavBar({ searchTerm, setSearchTerm }) {
 NavBar.propTypes = {
   setSearchTerm: PropTypes.func,
   searchTerm: PropTypes.string,
+  setFilterType: PropTypes.func,
+  filterType: PropTypes.string,
 };
 export default NavBar;
