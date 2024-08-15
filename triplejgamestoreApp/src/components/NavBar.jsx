@@ -1,13 +1,10 @@
 import * as React from "react";
 import PropTypes from "prop-types";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { styled, useTheme, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-
-import FormGroup from "@mui/material/FormGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch from "@mui/material/Switch";
 
 import Drawer from "@mui/material/Drawer";
 import Divider from "@mui/material/Divider";
@@ -121,9 +118,8 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-function NavBar({ searchTerm, setSearchTerm }) {
+function NavBar({ searchTerm, setSearchTerm , filterType, setFilterType}) {
   const gameFilters = [
-    "Popular",
     "First Person Shooter",
     "Platformer",
     "Action",
@@ -132,6 +128,8 @@ function NavBar({ searchTerm, setSearchTerm }) {
   ]; //array of genres
 
   const navigate = useNavigate();
+
+  const userId = localStorage.getItem('userId')
 
   const location = useLocation();
   const path = location.pathname;
@@ -148,7 +146,7 @@ function NavBar({ searchTerm, setSearchTerm }) {
     setOpen(false);
   }; //Added from drawer component in MUI
 
-  const [auth, setAuth] = React.useState(true);
+  const [auth, setAuth] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleChange = (event) => {
     setAuth(event.target.checked);
@@ -160,34 +158,65 @@ function NavBar({ searchTerm, setSearchTerm }) {
     setAnchorEl(null);
   }; //Added by Appbar component in MUI
 
-  // const [searchTerm, setSearchTerm] = React.useState('');
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
   const handleDrawerFilterClick = (searchTerm) => {
-    console.log(searchTerm);
-    navigate(`/store?search=${searchTerm}`); //This takes the item and gets the genre from the array and puts it
+    setFilterType("Genre")
+    setSearchTerm(searchTerm);
   };
+
+  const handleFilterClick = (filterType) => {
+    console.log(filterType)
+    setFilterType(filterType)
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/account/login');
+};
+
+  const [loading, setLoading] = React.useState(true)
+  const [error, setError] = React.useState(null)
+  const [userName, setUserName] = React.useState("")
+  
+  const API_URL = "https://triplej-gamestore-2bf9fca17274.herokuapp.com/api/users"
+
+  useEffect(() => {
+    const fetchAccount = async () => {
+        const token = localStorage.getItem('token');
+        const id = localStorage.getItem("userId")
+        if (!token) {
+            setLoading(false);
+            return;
+        }
+        try {
+            const response = await fetch(`${API_URL}/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            if (!response.ok) {
+                throw new Error('Failed to fetch account details');
+            }
+            const accountData = await response.json();
+            setUserName(accountData.username)
+            setAuth(true)
+            setLoading(false);
+        } catch (error) {
+            setError(error);
+            setAuth(false)
+            setLoading(false);
+            console.log('not logged in')
+        }
+    };
+    fetchAccount();
+}, []);
 
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        {/* Temporary */}
-        <FormGroup>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={auth}
-                onChange={handleChange}
-                aria-label="login switch"
-              />
-            }
-            label={auth ? "Logout" : "Login"}
-          />
-        </FormGroup>
-        {/* Temporary */}
-
         <Toolbar>
           <IconButton
             color="inherit"
@@ -199,20 +228,25 @@ function NavBar({ searchTerm, setSearchTerm }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Link to="/">Triple J Gamestore</Link>
+            <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>
+              Triple J Gamestore
+            </Link>
           </Typography>
           {inGamestore && (
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
-                value={searchTerm}
-                onChange={handleSearchChange}
-              />
-            </Search>
+            <>
+              <Typography variant="h6" component="div">{`Filter By: ${filterType}`}</Typography>
+              <Search>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Search…"
+                  inputProps={{ "aria-label": "search" }}
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                />
+              </Search>
+            </>
           )}
           {auth && (
             <div>
@@ -224,7 +258,7 @@ function NavBar({ searchTerm, setSearchTerm }) {
                 onClick={handleMenu}
                 color="inherit"
               >
-                <h6>account name</h6>
+                <h6>{userName}</h6>
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -241,8 +275,10 @@ function NavBar({ searchTerm, setSearchTerm }) {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={() => navigate(`/account/${userId}`)}>My account</MenuItem>
+                <MenuItem onClick={() => navigate("/account/cart")}>Cart</MenuItem>
+                <MenuItem onClick={() => navigate("/account/history")}>Purchase History</MenuItem>
+                <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
               </Menu>
             </div>
           )}
@@ -273,7 +309,7 @@ function NavBar({ searchTerm, setSearchTerm }) {
         </DrawerHeader>
         <Divider />
         <List subheader={<li />}>
-          <ListSubheader>Filters</ListSubheader>
+          <ListSubheader>Genre</ListSubheader>
           {gameFilters.map((text) => (
             <ListItem key={text} disablePadding>
               <ListItemButton onClick={() => handleDrawerFilterClick(text)}>
@@ -283,10 +319,11 @@ function NavBar({ searchTerm, setSearchTerm }) {
           ))}
         </List>
         <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text) => (
+        <List subheader={<li/>}>
+        <ListSubheader>Filter By</ListSubheader>
+          {["Name", "Genre", "Price"].map((text) => (
             <ListItem key={text} disablePadding>
-              <ListItemButton>
+              <ListItemButton onClick={() => handleFilterClick(text)}>
                 <ListItemText primary={text} />
               </ListItemButton>
             </ListItem>
@@ -302,5 +339,7 @@ function NavBar({ searchTerm, setSearchTerm }) {
 NavBar.propTypes = {
   setSearchTerm: PropTypes.func,
   searchTerm: PropTypes.string,
+  setFilterType: PropTypes.func,
+  filterType: PropTypes.string,
 };
 export default NavBar;

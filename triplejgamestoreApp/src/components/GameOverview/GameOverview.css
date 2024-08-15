@@ -1,0 +1,118 @@
+.singleGamestore-container {
+    display: flex;
+    justify-content: center;
+    color: rgb(255, 255, 255);
+    background: #555555;
+  background: -moz-radial-gradient(center, #555555 0%, #003F74 50%, #555555 100%);
+  background: -webkit-radial-gradient(center, #555555 0%, #003F74 50%, #555555 100%);
+  background: radial-gradient(ellipse at center, #555555 0%, #003F74 50%, #555555 100%);
+  max-height: fit-content;
+  }
+  
+  .singleGameGroup {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: auto;
+    max-width: 1400px;
+    height: auto;
+    grid-template-columns: 1fr, 1fr, 1fr;
+    place-items: center;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 22px;
+    font-weight: 400;
+    font-variant: small-caps;
+  }
+  
+  .gameSingle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: large;
+    border: 1px groove white;
+    text-align: center;
+    align-items: center;
+    overflow: none;
+    padding: 8px;
+    border-radius: 15px;
+    margin: 5px;
+    height: 900px;
+    width: 430px;
+    display: grid;
+    grid-template-columns: 1fr, 1fr, 1fr;
+    background-color: rgba(255, 255, 255, 0.114);
+  }
+  
+  .addToCartBttn {
+    background-color: rgba(0, 0, 0, 0.414);
+    /* background-color: aliceblue; */
+    color: black;
+    color: white;
+    border: 2px solid rgb(19, 19, 19);
+    min-width: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 15px;
+  }
+  
+  #viewGameBttn {
+    background-color: rgba(0, 0, 0, 0.414);
+    /* background-color: aliceblue; */
+    color: black;
+    color: white;
+    border: 2px solid rgb(19, 19, 19);
+    min-width: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 15px;
+  }
+  
+  .addToCartBttn:hover {
+    background-color: rgba(0, 0, 0, 0.706);
+    color: white;
+    cursor: pointer;
+  }
+  
+  #viewGameBttn:hover {
+    background-color: rgba(0, 0, 0, 0.706);
+    color: white;
+    cursor: pointer;
+  }
+  
+  #gameImageContainer-single {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    place-items: center;
+    width: 500px;
+  }
+  
+  .gameTitle-single {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+    font-size:larger;
+  }
+  .gameImage-single {
+    align-content: center;
+  }
+  
+  .gameDetails-single {
+    text-decoration: underline;
+  }
+  
+  .gameInfo-single {
+    border: 2px, solid, #555555;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .gameInfo-single li {
+    text-align: center;
+    list-style: none;
+  }
