@@ -1,5 +1,6 @@
 import * as React from "react";
 import PropTypes from "prop-types";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { styled, useTheme, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -31,6 +32,7 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import SearchIcon from "@mui/icons-material/Search";
 
 import { Link } from "react-router-dom";
+import { Token } from "@mui/icons-material";
 
 const drawerWidth = 240;
 
@@ -133,6 +135,8 @@ function NavBar({ searchTerm, setSearchTerm }) {
 
   const navigate = useNavigate();
 
+  const userId = localStorage.getItem('userId')
+
   const location = useLocation();
   const path = location.pathname;
   const inGamestore = path === "/store"; //used to get the path to conditionally render search bar in store
@@ -148,7 +152,7 @@ function NavBar({ searchTerm, setSearchTerm }) {
     setOpen(false);
   }; //Added from drawer component in MUI
 
-  const [auth, setAuth] = React.useState(true);
+  const [auth, setAuth] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleChange = (event) => {
     setAuth(event.target.checked);
@@ -160,34 +164,59 @@ function NavBar({ searchTerm, setSearchTerm }) {
     setAnchorEl(null);
   }; //Added by Appbar component in MUI
 
-  // const [searchTerm, setSearchTerm] = React.useState('');
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
   const handleDrawerFilterClick = (searchTerm) => {
-    console.log(searchTerm);
-    navigate(`/store?search=${searchTerm}`); //This takes the item and gets the genre from the array and puts it
+    setSearchTerm(searchTerm);
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/account/login');
+};
+
+  const [loading, setLoading] = React.useState(true)
+  const [error, setError] = React.useState(null)
+  const [userName, setUserName] = React.useState("")
+  
+  const API_URL = "https://triplej-gamestore-2bf9fca17274.herokuapp.com/api/users"
+
+  useEffect(() => {
+    const fetchAccount = async () => {
+        const token = localStorage.getItem('token');
+        const id = localStorage.getItem("userId")
+        if (!token) {
+            setLoading(false);
+            return;
+        }
+        try {
+            const response = await fetch(`${API_URL}/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            if (!response.ok) {
+                throw new Error('Failed to fetch account details');
+            }
+            const accountData = await response.json();
+            setUserName(accountData.username)
+            setAuth(true)
+            setLoading(false);
+        } catch (error) {
+            setError(error);
+            setAuth(false)
+            setLoading(false);
+            console.log('not logged in')
+        }
+    };
+    fetchAccount();
+}, []);
 
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        {/* Temporary */}
-        <FormGroup>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={auth}
-                onChange={handleChange}
-                aria-label="login switch"
-              />
-            }
-            label={auth ? "Logout" : "Login"}
-          />
-        </FormGroup>
-        {/* Temporary */}
-
         <Toolbar>
           <IconButton
             color="inherit"
@@ -224,7 +253,7 @@ function NavBar({ searchTerm, setSearchTerm }) {
                 onClick={handleMenu}
                 color="inherit"
               >
-                <h6>account name</h6>
+                <h6>{userName}</h6>
               </IconButton>
               <Menu
                 id="menu-appbar"
@@ -241,8 +270,10 @@ function NavBar({ searchTerm, setSearchTerm }) {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={() => navigate(`/account/${userId}`)}>My account</MenuItem>
+                <MenuItem onClick={() => navigate("/account/cart")}>Cart</MenuItem>
+                <MenuItem onClick={() => navigate("/account/history")}>Purchase History</MenuItem>
+                <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
               </Menu>
             </div>
           )}
