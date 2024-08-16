@@ -101,9 +101,6 @@
   cursor: pointer;
 }
 
-#gameImageContainer-store {
-}
-
 .gameTitle-store {
   display: flex;
   justify-content: center;
@@ -112,8 +109,6 @@
   font-size: larger;
 }
 
-.gameInfo-store {
-}
 
 .headerTripleJ-store {
   display: flex;
