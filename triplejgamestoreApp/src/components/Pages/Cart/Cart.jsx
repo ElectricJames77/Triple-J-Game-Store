@@ -6,25 +6,23 @@ import {
   addGameToCart,
   removeGameFromCart,
 } from "../../../LinkURL";
+import { Link } from "react-router-dom";
 
-function CartProduct() {
-  const {
-    cart,
-    addOneToCart,
-    removeOneFromCart,
-    getTotalCost,
-    deleteFromCart,
-  } = useContext(CartContext);
-
+function Cart() {
   const [cartGames, setCartGames] = useState([]);
+  const [addOneGames, setaddOneGames] = useState([]);
+  const [deleteOneGames, setdeleteOneGames] = useState([]);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { id } = useParams();
+
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
-    async function fetchGames(id) {
+    async function fetchGames() {
       try {
-        const data = await fetchCartGames(id);
+        const data = await fetchCartGames(userId, token);
         setCartGames(data);
         setLoading(false);
       } catch (err) {
@@ -34,8 +32,31 @@ function CartProduct() {
       }
     }
 
-    fetchGames(id);
+    fetchGames();
   }, []);
+
+  async function addGame(gameId) {
+    try {
+      const data = await addGameToCart(userId, token, gameId);
+      setaddOneGames(data);
+      setLoading(false);
+    } catch (err) {
+      console.error("Error fetching cart games", err);
+      setError(err);
+      setLoading(false);
+    }
+  }
+
+  async function deleteGame(gameId) {
+    try {
+      const data = await removeGameFromCart(userId, token, gameId);
+      setLoading(false);
+    } catch (err) {
+      console.error("Error fetching cart games", err);
+      setError(err);
+      setLoading(false);
+    }
+  }
 
   return (
     <>
@@ -49,26 +70,17 @@ function CartProduct() {
                   <h3>{item.title}</h3>
 
                   <p>Price: ${item.price}</p>
-                  <p>Quantity:${item.quantity}</p>
+                  <p>Quantity:{item.quantity}</p>
                   <div>
                     <button
-                      onClick={() => removeOneFromCart(item.id)}
+                      onClick={() => deleteGame(item.id)}
                       id="removeOneBttn"
                     >
                       -
                     </button>
-                    <button
-                      onClick={() => addOneToCart(item.id)}
-                      id="addOneBttn"
-                    >
+                    <button onClick={() => addGame(item.id)} id="addOneBttn">
                       +
                     </button>
-                    {/* <button onClick={removeOneFromCart} id="removeOneBttn">
-                      -
-                    </button>
-                    <button onClick={addOneToCart} id="addOneBttn">
-                      +
-                    </button> */}
                   </div>
                 </div>
                 <img
@@ -81,12 +93,18 @@ function CartProduct() {
             );
           })}
           <div className="total-cost">
-            <h3>Total Cost: ${getTotalCost()}</h3>
+            <h3>Total Cost: </h3>
           </div>
+          <Link to={`/account/success`}>
+            <button id="checkoutBttn-cart">Checkout</button>
+          </Link>
         </div>
+        <Link to={`/store/`}>
+          <button id="viewGameBttn">Back To All Games</button>
+        </Link>
       </div>
     </>
   );
 }
 
-export default CartProduct;
+export default Cart;

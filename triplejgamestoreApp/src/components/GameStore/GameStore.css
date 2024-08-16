@@ -21,6 +21,8 @@
     #003f74 50%,
     #555555 100%
   );
+
+  z-index: -1;
 }
 
 .gameGroup {
@@ -36,6 +38,8 @@
   font-size: 22px;
   font-weight: 400;
   font-variant: small-caps;
+
+  z-index: 2;
 }
 
 .gameSinglur {
@@ -47,13 +51,13 @@
   text-align: center;
   align-items: center;
   overflow: none;
-  padding: 8px;
+  padding: 4px;
   border-radius: 15px;
   margin: 5px;
-  height: 500px;
+  height: 550px;
   width: 330px;
-  display: grid;
   grid-template-columns: 1fr, 1fr, 1fr;
+  background-color: rgba(255, 255, 255, 0.345);
 }
 
 .addToCartBttn {
@@ -62,12 +66,13 @@
   color: black;
   color: white;
   border: 2px solid rgb(19, 19, 19);
-  min-width: 100px;
+  max-width: 100px;
   padding-left: 10px;
   padding-right: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
   border-radius: 15px;
+  align-items: center;
 }
 
 #viewGameBttn {
@@ -103,14 +108,31 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 10vh;
+  height: 5vh;
   font-size: larger;
 }
 
 .gameInfo-store {
 }
 
-#headerTripleJ-store {
-  /* display: block; */
-  width: 100%;
+.headerTripleJ-store {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 80px;
+  /* position: absolute;
+    top: 0;
+    left: 0;
+    right: 0; */
+  color: rgb(255, 127, 80);
+  opacity: 10%;
+
+  font-family: Mario;
+  font-size: 300px;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: black;
+
+  position: fixed;
+  z-index: 1;
+  transform: translate(0%, 30%);
 }
