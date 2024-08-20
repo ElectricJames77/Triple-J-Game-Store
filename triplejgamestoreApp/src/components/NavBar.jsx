@@ -2,18 +2,10 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { styled, useTheme, alpha } from "@mui/material/styles";
+import { styled, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-import Drawer from "@mui/material/Drawer";
-import Divider from "@mui/material/Divider";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import ListSubheader from "@mui/material/ListSubheader";
-import CssBaseline from "@mui/material/CssBaseline";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -23,8 +15,6 @@ import MenuItem from "@mui/material/MenuItem";
 import InputBase from "@mui/material/InputBase";
 
 import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import SearchIcon from "@mui/icons-material/Search";
 
 import { Link } from "react-router-dom";
@@ -73,25 +63,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create("margin", {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    }),
-  })
-);
-
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
@@ -109,23 +80,7 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: "flex-end",
-}));
-
-function NavBar({ searchTerm, setSearchTerm , filterType, setFilterType}) {
-  const gameFilters = [
-    "First Person Shooter",
-    "Platformer",
-    "Action",
-    "Adventure",
-    "Horror",
-  ]; //array of genres
+function NavBar({ searchTerm, setSearchTerm}) {
 
   const navigate = useNavigate();
 
@@ -134,23 +89,16 @@ function NavBar({ searchTerm, setSearchTerm , filterType, setFilterType}) {
   const location = useLocation();
   const path = location.pathname;
   const inGamestore = path === "/store"; //used to get the path to conditionally render search bar in store
-
   //in the serach bar in the game store
 
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  }; //Added from drawer component in MUI
 
   const [auth, setAuth] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
+  
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -161,18 +109,10 @@ function NavBar({ searchTerm, setSearchTerm , filterType, setFilterType}) {
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
-  const handleDrawerFilterClick = (searchTerm) => {
-    setFilterType("Genre")
-    setSearchTerm(searchTerm);
-  };
-
-  const handleFilterClick = (filterType) => {
-    console.log(filterType)
-    setFilterType(filterType)
-  }
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
     navigate('/account/login');
 };
 
@@ -214,19 +154,11 @@ function NavBar({ searchTerm, setSearchTerm , filterType, setFilterType}) {
 }, []);
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
+    <Box sx={{ display: "flex" }}
+    height="64px"
+    >
       <AppBar position="fixed" open={open}>
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: "none" }) }}
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>
               Triple J Gamestore
@@ -234,7 +166,6 @@ function NavBar({ searchTerm, setSearchTerm , filterType, setFilterType}) {
           </Typography>
           {inGamestore && (
             <>
-              <Typography variant="h6" component="div">{`Filter By: ${filterType}`}</Typography>
               <Search>
                 <SearchIconWrapper>
                   <SearchIcon />
@@ -284,55 +215,6 @@ function NavBar({ searchTerm, setSearchTerm , filterType, setFilterType}) {
           )}
         </Toolbar>
       </AppBar>
-
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
-            width: drawerWidth,
-            boxSizing: "border-box",
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={open}
-      >
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "ltr" ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List subheader={<li />}>
-          <ListSubheader>Genre</ListSubheader>
-          {gameFilters.map((text) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton onClick={() => handleDrawerFilterClick(text)}>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List subheader={<li/>}>
-        <ListSubheader>Filter By</ListSubheader>
-          {["Name", "Genre", "Price"].map((text) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton onClick={() => handleFilterClick(text)}>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-      <Main open={open}>
-        <DrawerHeader />
-      </Main>
     </Box>
   );
 }
