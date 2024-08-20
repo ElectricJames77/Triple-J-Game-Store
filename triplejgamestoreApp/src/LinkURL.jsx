@@ -25,6 +25,9 @@
 //Login URL: (POST)
 //https://triplej-gamestore-2bf9fca17274.herokuapp.com/api/login
 
+// const token = localStorage.getItem("token");
+// const userId = localStorage.getItem("userId");
+
 async function postLogin() {
   try {
     const response = await fetch(
@@ -91,8 +94,7 @@ async function createUsername() {
 //View Users Cart URL: (GET)
 //https://triplej-gamestore-2bf9fca17274.herokuapp.com/api/cart/id
 
-async function fetchCartGames(userId) {
-  console.log(localStorage.getItem("token"));
+async function fetchCartGames(userId, token) {
   try {
     //this awaits the response from the API and pauses until it receives a response.
     const response = await fetch(
@@ -101,7 +103,7 @@ async function fetchCartGames(userId) {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -124,16 +126,26 @@ async function fetchCartGames(userId) {
 //Add Game to Cart URL: (POST)
 //https://triplej-gamestore-2bf9fca17274.herokuapp.com/api/cart
 
-async function addGameToCart() {
+async function addGameToCart(userId, token, gameId) {
+  console.log(gameId);
+  console.log(userId);
+  console.log(token);
   try {
     // Awaits the response from the API to add the new player
-    const response = await fetch(`${API_URL}/cart`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(),
-    });
+    const response = await fetch(
+      `https://triplej-gamestore-2bf9fca17274.herokuapp.com/api/cart`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          userId,
+          gameId,
+        }),
+      }
+    );
     const data = await response.json();
 
     // Check if the player was successfully added
@@ -154,12 +166,23 @@ async function addGameToCart() {
 //Delete Game from Cart URL: (DELETE)
 //https://triplej-gamestore-2bf9fca17274.herokuapp.com/api/cart
 
-async function removeGameFromCart(Id) {
+async function removeGameFromCart(userId, token, gameId) {
   try {
-    const response = await fetch(`${API_URL}/cart`, {
-      //similar to POST, this DELETES based on the user request.
-      method: "DELETE",
-    });
+    const response = await fetch(
+      `https://triplej-gamestore-2bf9fca17274.herokuapp.com/api/cart`,
+      {
+        //similar to POST, this DELETES based on the user request.
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          userId,
+          gameId,
+        }),
+      }
+    );
     const data = await response.json();
     return data;
   } catch (err) {

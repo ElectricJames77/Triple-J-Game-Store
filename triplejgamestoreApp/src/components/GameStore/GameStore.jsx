@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import AuthHook from "../AuthHooks/AuthHook";
 import { CartContext } from "../../CartContext";
 import "./GameStore.css";
+import { addGameToCart } from "../../LinkURL";
 
 function GameStore({ searchTerm }) {
   const [games, setAllGames] = useState([]);
@@ -14,9 +15,13 @@ function GameStore({ searchTerm }) {
   const [searchParam, setSearchParam] = useState("");
   const { isLoggedIn } = AuthHook();
   const { addOneToCart } = useContext(CartContext);
+  const [isInCart, setIsInCart] = useState(false);
 
   const API_URL =
     "https://triplej-gamestore-2bf9fca17274.herokuapp.com/api/games"; //Games URL
+
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     async function getGameData() {
@@ -40,10 +45,33 @@ function GameStore({ searchTerm }) {
     ? games.filter((game) => game.title.includes(searchTerm))
     : games;
 
+  async function addGame(gameId) {
+    try {
+      const data = await addGameToCart(userId, token, gameId);
+      setLoading(false);
+    } catch (err) {
+      console.error("Error fetching cart games", err);
+      setError(err);
+      setLoading(false);
+    }
+  }
+
+  async function deleteGame(gameId) {
+    try {
+      const data = await removeOneFromCart(userId, token, gameId);
+      setCartsetdeleteOneGames(data);
+      setLoading(false);
+    } catch (err) {
+      console.error("Error fetching cart games", err);
+      setError(err);
+      setLoading(false);
+    }
+  }
+
   return (
     <>
-      <h1>Triple J</h1>
       <div className="gamestore-container">
+        <h1 className="headerTripleJ-store">Triple J</h1>
         <div className="gameGroup">
           {gamesToDisplay.map((game) => {
             return (
@@ -67,19 +95,21 @@ function GameStore({ searchTerm }) {
                   Price: ${game.price}
                   <br />
                 </div>
-                {/* change the button to the section being clickable */}
 
                 <Link to={`/store/${game.id}`}>
                   <button id="viewGameBttn">View Game</button>
                 </Link>
 
-                <Link to={`/account/cart`}>
-                  {isLoggedIn && (
-                    <button onClick={addOneToCart} className="addToCartBttn">
-                      Add to Cart
-                    </button>
-                  )}
-                </Link>
+                {isLoggedIn && (
+                  <button
+                    onClick={() => {
+                      addGame(game.id);
+                    }}
+                    className="addToCartBttn"
+                  >
+                    Add to Cart
+                  </button>
+                )}
               </div>
             );
           })}
@@ -88,6 +118,7 @@ function GameStore({ searchTerm }) {
     </>
   );
 }
+
 GameStore.propTypes = {
   searchTerm: PropTypes.string,
 };
