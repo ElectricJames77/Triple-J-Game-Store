@@ -11,17 +11,16 @@ function App() {
   const notHome = path !== "/";
 
   const [searchTerm, setSearchTerm] = React.useState("");
-  const [filterType, setFilterType] = React.useState("Name")
 
   return (
     <CartProvider>
       <div className="min-h-screen">
         {
           notHome && (
-            <NavBar setSearchTerm={setSearchTerm} searchTerm={searchTerm} setFilterType={setFilterType} filterType={filterType} />
+            <NavBar setSearchTerm={setSearchTerm} searchTerm={searchTerm} />
           ) /*Header*/
         }
-        <div className="container mx-auto mt-10">
+        <div className="container mx-auto mt-5">
           <Router searchTerm={searchTerm} />
         </div>
       </div>
