@@ -1,11 +1,10 @@
 .cart-container {
-  height: 100vh;
-  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 5px;
   background: #797979;
+  min-height: 100vh;
   background: -moz-radial-gradient(
     center,
     #797979 0%,
@@ -45,9 +44,14 @@
 
 .cartInfo-box {
   float: left;
+  text-align: left;
   padding-left: 50px;
   padding-right: 50px;
+  gap: 5px;
   color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .gameImage-cart {
@@ -58,8 +62,32 @@
   border: white groove 3px;
   border-radius: 10px;
   padding: 10px;
+  min-height: 200px;
+  min-width: 400px;
+  text-align: center;
 }
 
 .title-cart {
   text-align: center;
+}
+
+.emptyCartText {
+  padding-top: 30px;
+}
+
+#removeOneBttn {
+  background-color: rgba(0, 0, 0, 0.414);
+  /* background-color: aliceblue; */
+  color: white;
+  border: 2px solid rgb(19, 19, 19);
+  min-width: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#removeOneBttn:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.158);
 }

@@ -127,9 +127,6 @@ async function fetchCartGames(userId, token) {
 //https://triplej-gamestore-2bf9fca17274.herokuapp.com/api/cart
 
 async function addGameToCart(userId, token, gameId) {
-  console.log(gameId);
-  console.log(userId);
-  console.log(token);
   try {
     // Awaits the response from the API to add the new player
     const response = await fetch(
@@ -141,8 +138,8 @@ async function addGameToCart(userId, token, gameId) {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          userId,
           gameId,
+          userId: parseInt(userId),
         }),
       }
     );
@@ -150,7 +147,7 @@ async function addGameToCart(userId, token, gameId) {
 
     // Check if the player was successfully added
     if (data.game) {
-      console.log("New player added successfully:", data.game);
+      console.log("New game added successfully:", data.game);
 
       // Fetch all players again to ensure the rendered list is updated
       const updatedGame = await fetchCartGames();
@@ -184,6 +181,7 @@ async function removeGameFromCart(userId, token, gameId) {
       }
     );
     const data = await response.json();
+    location.reload();
     return data;
   } catch (err) {
     console.error(`Whoops, trouble removing game #${Id} from the roster!`, err);

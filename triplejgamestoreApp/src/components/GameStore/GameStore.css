@@ -1,5 +1,7 @@
 .gamestore-container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   color: rgb(255, 255, 255);
   background: #555555;
@@ -30,7 +32,7 @@
   flex-wrap: wrap;
   justify-content: space-evenly;
   width: auto;
-  max-width: 1400px;
+  max-width: 1600px;
   /* height: auto; */
   grid-template-columns: 1fr, 1fr, 1fr;
   place-items: center;
@@ -38,6 +40,7 @@
   font-size: 22px;
   font-weight: 400;
   font-variant: small-caps;
+  text-align: center;
 
   z-index: 2;
 }
@@ -54,10 +57,12 @@
   padding: 4px;
   border-radius: 15px;
   margin: 5px;
-  height: 550px;
+  margin-bottom: 10px;
+  height: auto;
   width: 330px;
   grid-template-columns: 1fr, 1fr, 1fr;
   background-color: rgba(255, 255, 255, 0.345);
+  gap:5px;
 }
 
 .addToCartBttn {
@@ -78,7 +83,6 @@
 #viewGameBttn {
   background-color: rgba(0, 0, 0, 0.414);
   /* background-color: aliceblue; */
-  color: black;
   color: white;
   border: 2px solid rgb(19, 19, 19);
   min-width: 10px;
@@ -99,6 +103,7 @@
   background-color: rgba(0, 0, 0, 0.706);
   color: white;
   cursor: pointer;
+
 }
 
 .gameTitle-store {
@@ -109,25 +114,120 @@
   font-size: larger;
 }
 
-
 .headerTripleJ-store {
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin-top: 80px;
+  margin-top: 10px;
+  margin-bottom: 0px;
+  /* align-items: center; */
+  /* margin-top: 10px; */
   /* position: absolute;
     top: 0;
     left: 0;
     right: 0; */
   color: rgb(255, 127, 80);
-  opacity: 10%;
+  opacity: 90%;
 
   font-family: Mario;
-  font-size: 300px;
+  font-size: 200px;
   -webkit-text-stroke-width: 3px;
   -webkit-text-stroke-color: black;
 
-  position: fixed;
-  z-index: 1;
-  transform: translate(0%, 30%);
+  /* position: fixed; */
+  /* z-index: 1; */
+  /* transform: translate(0%, -120%); */
+}
+
+.num1 {
+  font-family: Mario;
+  font-size: 50px;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: black;
+  color: rgba(255, 127, 80, 0.777);
+  position:sticky;
+  left: 95%;
+}
+
+.showMoreBttn-store {
+  height: auto;
+  max-width: 150px;
+  margin: 20px;
+  color: white;
+  background-color: black;
+}
+
+.showMoreBttn-store:hover {
+  height: 25px;
+  max-width: 150px;
+  margin: 15px;
+  cursor: pointer;
+  color: black;
+  background-color: white;
+}
+
+.top1Game {
+  text-align: center;
+  margin: 0;
+}
+
+.top1Singlur {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: large;
+  border: 1px groove white;
+  text-align: center;
+  align-items: center;
+  overflow: none;
+  padding: 4px;
+  border-radius: 15px;
+  margin: 5px;
+  height: auto;
+  width: 700px;
+  grid-template-columns: 1fr, 1fr, 1fr;
+  background-color: rgba(255, 255, 255, 0.345);
+  margin-top: 20px;
+  gap:5px;
+
+}
+
+.top2and3Games {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content:space-between;
+  text-align: center;
+  margin: 30px;
+  /* order: 1; */
+}
+
+.top2and3Title.active {
+  order: -1;
+  flex: 1 0 100%;
+}
+
+.top2and3GameSinglur {
+  display: flex;
+  flex-direction: column;
+  justify-content: space space-between;
+  font-size: large;
+  border: 1px groove white;
+  text-align: center;
+  align-items: center;
+  overflow: none;
+  padding: 4px;
+  border-radius: 15px;
+  margin: 5px;
+  margin-top: 20px;
+  height: auto;
+  width: 450px;
+  grid-template-columns: 1fr, 1fr, 1fr;
+  background-color: rgba(255, 255, 255, 0.345);
+  gap:5px;
+
+}
+
+.otherTitle.active {
+  order: -1;
+  flex: 1 0 100%;
 }

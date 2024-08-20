@@ -58,47 +58,63 @@ function Cart() {
     }
   }
 
+  const totalCost = cartGames.reduce((total, item) => total + item.price, 0).toFixed(2);
+
   return (
     <>
       <div className="cart-container">
+        <Link to={`/store/`}>
+          <button id="viewGameBttn">Back To All Games</button>
+        </Link>
+        <br />
         <div className="smallerContainer-cart">
           <h1 className="title-cart">My Cart</h1>
-          {cartGames.map((item) => {
-            return (
-              <div className="cart-box" key={item.id}>
-                <div className="cartInfo-box">
-                  <h3>{item.title}</h3>
+          {cartGames.length === 0 ? (
+            <h1 className="emptyCartText">Your Cart is Empty</h1>
+          ) : (
+            cartGames.map((item) => {
+              return (
+                <div className="cart-box" key={item.id}>
+                  <div className="cartInfo-box">
+                    <h3>{item.title}</h3>
 
-                  <p>Price: ${item.price}</p>
-                  <p>Quantity:{item.quantity}</p>
-                  <div>
-                    <button
-                      onClick={() => deleteGame(item.id)}
-                      id="removeOneBttn"
-                    >
-                      -
-                    </button>
-                    <button onClick={() => addGame(item.id)} id="addOneBttn">
-                      +
-                    </button>
+                    <p>Price: ${item.price}</p>
+                    <p>Quantity: 1</p>
+                    <div>
+                      <button
+                        onClick={() => deleteGame(item.id)}
+                        id="removeOneBttn"
+                      >
+                        Remove Game
+                      </button>
+                      {/* <button onClick={() => addGame(item.id)} id="addOneBttn">
+                        +
+                      </button> */}
+                    </div>
                   </div>
+                  <img
+                    className="gameImage-cart"
+                    src={item.imageUrl}
+                    alt={item.title}
+                    style={{ width: "125px" }}
+                  />
                 </div>
-                <img
-                  className="gameImage-cart"
-                  src={item.imageUrl}
-                  alt={item.title}
-                  style={{ width: "125px" }}
-                />
+              );
+            })
+          )}
+          
+          {cartGames.length !== 0 ? (
+            <>
+              <div className="total-cost">
+                <h3>Total Cost: ${totalCost} </h3>
               </div>
-            );
-          })}
-          <div className="total-cost">
-            <h3>Total Cost: </h3>
-          </div>
-          <Link to={`/account/success`}>
-            <button id="checkoutBttn-cart">Checkout</button>
-          </Link>
+              <Link to={`/account/success`}>
+                <button id="checkoutBttn-cart">Checkout</button>
+              </Link>
+            </>
+          ) : null}
         </div>
+        <br />
         <Link to={`/store/`}>
           <button id="viewGameBttn">Back To All Games</button>
         </Link>
