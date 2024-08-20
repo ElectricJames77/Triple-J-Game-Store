@@ -1,0 +1,102 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  email String @unique
+  password String
+  username String @unique
+  role Role @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  wishlist Wishlist?
+  cart Cart?
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Game {
+  id Int @id @default(autoincrement())
+  title String
+  price Float
+  description String
+  imageUrl String
+  genre Genre
+  totalRating Int @default(0)    // Tracks the sum of all ratings
+  ratingsCount Int @default(0)   // Keeps track of the total ratings received averageRating Float @map("CAST(totalRating AS REAL) / ratingsCount")// Computed field based on totalRating and ratingsCount
+  carts GameInCart[] @relation("GameInCartToGame")
+  wishlists GameInWishlist[] @relation("GameInWishlistToGame") 
+}
+
+enum Genre {
+  Adventure
+  Arcade
+  card_and_board_game
+  Fighting
+  hack_and_slash_beat_em_up
+  Indie
+  MOBA
+  Music
+  Pinball
+  Platform
+  point_and_click
+  Puzzle
+  Quiz
+  Racing
+  RTS
+  RPG
+  Shooter
+  Simulator
+  Sport
+  Strategy
+  Tactical
+  TBS
+  visual_novel
+}
+model Cart {
+  id Int @id @default(autoincrement())
+  userId Int @unique
+  user User @relation(fields: [userId], references: [id])
+  games GameInCart[]
+}
+
+model Wishlist {
+  id Int @id @default(autoincrement())
+  userId Int @unique
+  user User @relation(fields: [userId], references: [id])
+  games GameInWishlist[]
+}
+
+model GameInCart {
+  id     Int @id @default(autoincrement())
+  gameId Int
+  cartId Int
+  game   Game  @relation(fields: [gameId], references: [id], name: "GameInCartToGame")
+  cart   Cart  @relation(fields: [cartId], references: [id])
+  @@unique([gameId, cartId])
+}
+
+model GameInWishlist {
+  id      Int @id @default(autoincrement())
+  gameId  Int
+  wishlistId Int
+  game     Game  @relation(fields: [gameId], references: [id], name: "GameInWishlistToGame")
+  wishlist Wishlist  @relation(fields: [wishlistId], references: [id])
+  @@unique([gameId, wishlistId])
+}

@@ -1,0 +1,35 @@
+{
+  "name": "@jakemcguire55/triplej-gs-database",
+  "version": "1.0.24",
+  "description": "",
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "generate": "npx prisma generate",
+    "postinstall": "npm run generate",
+    "release": "standard-version",
+    "seed": "node ./Server/database/seed.js",
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "peerDependencies": {
+    "@prisma/client": ">=5"
+  },
+  "dependencies": {
+    "@prisma/client": ">=5",
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "node": "^22.5.0",
+    "nodemon": "^3.1.4",
+    "prisma": "^5.16.2",
+    "standard-version": "^9.5.0"
+  }
+}
