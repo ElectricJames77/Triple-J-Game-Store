@@ -58,7 +58,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
-})(({ theme}) => ({
+})(({ theme }) => ({
   transition: theme.transitions.create(["margin", "width"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -157,15 +157,6 @@ function NavBar({ searchTerm, setSearchTerm}) {
                   onChange={handleSearchChange}
                 />
               </Search>
-            </>
-          )}
-          {!inGamestore && (
-            <>
-              <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
-                <Link to="/store" style={{ color: 'inherit', textDecoration: 'none' }}>
-                  Store
-                </Link>
-              </Typography>
             </>
           )}
           {auth && (
