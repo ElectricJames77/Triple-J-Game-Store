@@ -5,21 +5,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import InputBase from "@mui/material/InputBase";
-
-import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-
 import { Link } from "react-router-dom";
-
-const drawerWidth = 240;
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -65,18 +58,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
+})(({ theme}) => ({
   transition: theme.transitions.create(["margin", "width"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
   }),
 }));
 
@@ -88,10 +73,8 @@ function NavBar({ searchTerm, setSearchTerm}) {
 
   const location = useLocation();
   const path = location.pathname;
-  const inGamestore = path === "/store"; //used to get the path to conditionally render search bar in store
+  const inGamestore = path === "/store" || path === "/store/"; //used to get the path to conditionally render search bar in store
   //in the serach bar in the game store
-
-  const [open, setOpen] = React.useState(false);
 
   const [auth, setAuth] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -174,6 +157,15 @@ function NavBar({ searchTerm, setSearchTerm}) {
                   onChange={handleSearchChange}
                 />
               </Search>
+            </>
+          )}
+          {!inGamestore && (
+            <>
+              <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
+                <Link to="/store" style={{ color: 'inherit', textDecoration: 'none' }}>
+                  Store
+                </Link>
+              </Typography>
             </>
           )}
           {auth && (
