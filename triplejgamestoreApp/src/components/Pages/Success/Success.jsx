@@ -1,9 +1,13 @@
-import "./Success.css"
+import "./Success.css";
 
 function Success() {
-    return (
-        <h1>Thank you for your purchase!</h1>
-    )
+  return (
+    <>
+    <div className="success-container">
+      <h1 className="successMessage">Thank you for your purchase!</h1>
+      </div>
+    </>
+  );
 }
 
 export default Success;

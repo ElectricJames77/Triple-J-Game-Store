@@ -95,6 +95,11 @@ export default function RegisterForm({ setToken }) {
           <Link to={`/`}>
             <button id="goBackBttn">Go Back</button>
           </Link>
+          <Link to={`/store`}>
+            {" "}
+            <br />
+            Go To Store
+          </Link>
         </form>
       </div>
     </>

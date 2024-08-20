@@ -78,8 +78,11 @@ export default function LoginForm({ setToken }) {
           <br />
           <button>Sign In</button>
           <br />
-          <Link to={`/`}>
+          <Link to={`/store`}>
             <button id="goBackBttn">Go Back</button>
+          </Link>
+        <Link to={`/store`}> <br />
+            Go To Store
           </Link>
         </form>
       </div>
