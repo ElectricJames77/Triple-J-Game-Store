@@ -14,7 +14,6 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import InputBase from "@mui/material/InputBase";
 
-import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 
 import { Link } from "react-router-dom";
@@ -90,11 +89,6 @@ function NavBar({ searchTerm, setSearchTerm}) {
   const path = location.pathname;
   const inGamestore = path === "/store"; //used to get the path to conditionally render search bar in store
   //in the serach bar in the game store
-
-  const [open, setOpen] = React.useState(false);
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
 
   const [auth, setAuth] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
