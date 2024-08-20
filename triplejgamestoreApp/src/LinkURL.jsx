@@ -146,12 +146,9 @@ async function addGameToCart(userId, token, gameId) {
     const data = await response.json();
 
     // Check if the player was successfully added
-    if (data.game) {
-      console.log("New game added successfully:", data.game);
-
-      // Fetch all players again to ensure the rendered list is updated
-      const updatedGame = await fetchCartGames();
-      fetchCartGames(updatedGame);
+    console.log(data);
+    if (data.gameId) {
+      console.log("New game added successfully:", data.gameId);
     } else {
       console.error("Failed to add game!");
     }
