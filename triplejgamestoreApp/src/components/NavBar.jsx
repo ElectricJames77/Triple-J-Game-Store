@@ -12,6 +12,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
+import { ShoppingBag } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
@@ -95,7 +96,8 @@ function NavBar({ searchTerm, setSearchTerm}) {
     localStorage.removeItem('userId');
     navigate('/account/login');
 };
-
+  const [hasCart, setHasCart] = React.useState(false)
+  let cartInStore = hasCart && inGamestore;
   const [loading, setLoading] = React.useState(true)
   const [error, setError] = React.useState(null)
   const [userName, setUserName] = React.useState("")
@@ -121,6 +123,14 @@ function NavBar({ searchTerm, setSearchTerm}) {
             }
             const accountData = await response.json();
             setUserName(accountData.username)
+            if (accountData.cart) {
+                if (accountData.cart.games.length > 0) {
+                    setHasCart(true)
+                }
+                console.log(accountData.cart)
+            } else {
+                setHasCart(false)
+            }
             setAuth(true)
             setLoading(false);
         } catch (error) {
@@ -161,8 +171,19 @@ function NavBar({ searchTerm, setSearchTerm}) {
           )}
           {auth && (
             <div>
-              <IconButton
+              {cartInStore && (              
+                <IconButton
                 size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                color="inherit"
+              >
+                <Link to="/account/cart"> <ShoppingBag /> </Link>
+              </IconButton>
+              )}
+              <IconButton
+                size="medium"
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
