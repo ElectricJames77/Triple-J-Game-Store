@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom";
-
+import './Logout.css'
 
 const Logout = () => {
     const navigate = useNavigate();
@@ -11,7 +11,7 @@ const Logout = () => {
         navigate('/account/login');
     };
     return (
-        <button onClick={handleLogout}>Logout</button>
+        <button onClick={handleLogout} className="logout-button">Logout</button>
     );
 };
 

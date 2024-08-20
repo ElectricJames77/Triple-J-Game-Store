@@ -8,6 +8,7 @@ import './Account.css';
 
 const Account = () => {
     const [account, setAccount] = useState(null);
+    const [users, setUsers] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const { id } = useParams();
@@ -41,6 +42,38 @@ const Account = () => {
         };
         fetchAccount();
     }, []);
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                setLoading(false);
+                return;
+            }
+            if (account?.role !== 'ADMIN') {
+                setLoading(false);
+                return;
+            }
+            try {
+                const response = await fetch(`${API_URL}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                if (!response.ok){
+                    throw new Error('Failed to fetch users');
+                }
+                const usersData = await response.json();
+                setUsers(usersData);
+                setLoading(false);
+                console.log(usersData);
+            } catch (error) {
+                setError(error);
+                setLoading(false);
+            }
+        };
+        fetchUsers();
+    }, );
 
     if (loading) {
         return <div className="flex justify-center items-center h-screen">Loading...</div>;
@@ -80,6 +113,24 @@ const Account = () => {
                         </ul>
                     ) : (
                         <p className="cart-empty">Your cart is empty.</p>
+                    )}
+                </div>
+                <div className="cart-section">
+                    <h3 className="cart-header">Users</h3>
+                    {users?.length > 0 ? (
+                        <ul className="cart-list">
+                            {users?.map((user) => {
+                                return (
+                                    <li key={user.id} className="cart-item">
+                                        <h4 className="cart-item-title">{user.username}</h4>
+                                        <p className="cart-item-price">{user.email}</p>
+                                        <p className="cart-item-price">{user.role}</p>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    ) : (
+                        <p className="users-empty">You Are Not An Admin</p>
                     )}
                 </div>
             </div>
