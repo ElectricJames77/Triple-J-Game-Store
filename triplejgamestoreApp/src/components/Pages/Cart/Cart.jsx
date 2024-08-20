@@ -12,6 +12,7 @@ function Cart() {
   const [cartGames, setCartGames] = useState([]);
   const [addOneGames, setaddOneGames] = useState([]);
   const [deleteOneGames, setdeleteOneGames] = useState([]);
+  const [account, setAccount] = useState([]);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -20,7 +21,45 @@ function Cart() {
   const userId = localStorage.getItem("userId");
 
   useEffect(() => {
+    const fetchAccount = async () => {
+      if (!token) {
+        setLoading(false);
+        return;
+      }
+      try {
+        const response = await fetch(
+          `https://triplej-gamestore-2bf9fca17274.herokuapp.com/api/users/${userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch account details");
+        }
+        const accountData = await response.json();
+        setAccount(accountData);
+        setLoading(false);
+        console.log(accountData);
+      } catch (error) {
+        setError(error);
+        setLoading(false);
+      }
+    };
+    fetchAccount();
+  }, []);
+  // console.log(accountData);
+
+  useEffect(() => {
+    // if (!account) return;
+
     async function fetchGames() {
+      console.log(account);
+      if (!account.cart) {
+        setLoading(false);
+        return;
+      }
       try {
         const data = await fetchCartGames(userId, token);
         setCartGames(data);
@@ -33,7 +72,7 @@ function Cart() {
     }
 
     fetchGames();
-  }, []);
+  }, [account]);
 
   async function addGame(gameId) {
     try {
@@ -58,7 +97,11 @@ function Cart() {
     }
   }
 
-  const totalCost = cartGames.reduce((total, item) => total + item.price, 0).toFixed(2);
+  const totalCost = cartGames
+    .reduce((total, item) => total + item.price, 0)
+    .toFixed(2);
+
+  // console.log(user);
 
   return (
     <>
@@ -89,9 +132,10 @@ function Cart() {
                       </button>
                       {/* <button onClick={() => addGame(item.id)} id="addOneBttn">
                         +
-                      </button> */}
+                        </button> */}
                     </div>
                   </div>
+
                   <img
                     className="gameImage-cart"
                     src={item.imageUrl}
@@ -102,7 +146,7 @@ function Cart() {
               );
             })
           )}
-          
+
           {cartGames.length !== 0 ? (
             <>
               <div className="total-cost">
