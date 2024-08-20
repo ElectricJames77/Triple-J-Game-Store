@@ -43,15 +43,15 @@ function GameStore({ searchTerm }) {
 
   const sortedGames = [...games].sort((a, b) => b.totalRating - a.totalRating);
 
-  const top1Game = games[0];
+  const top1Game = sortedGames[0];
 
-  const top2and3Games = games.slice(1, 3);
+  const top2and3Games = sortedGames.slice(1, 3);
 
-  const remainingGames = games.slice(3, gamesToShow);
+  const remainingGames = sortedGames.slice(3, gamesToShow);
 
-  // const gamesToDisplay = searchTerm
-  //   ? remainingGames.filter((game) => game.title.includes(searchTerm))
-  //   : remainingGames;
+  const gamesToDisplay = searchTerm
+    ? remainingGames.filter((game) => game.title.includes(searchTerm))
+    : remainingGames;
 
   async function addGame(gameId) {
     try {
