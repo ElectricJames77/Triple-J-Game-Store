@@ -60,10 +60,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme }) => ({
-  transition: theme.transitions.create(["margin", "width"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
+  backgroundColor: '#373737',
+  color: 'white',
+  boxShadow: 'none',
 }));
 
 function NavBar({ searchTerm, setSearchTerm}) {
