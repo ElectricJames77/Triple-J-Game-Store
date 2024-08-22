@@ -55,7 +55,7 @@ function Cart() {
     // if (!account) return;
 
     async function fetchGames() {
-      console.log(account);
+      // console.log(account);
       if (!account.cart) {
         setLoading(false);
         return;

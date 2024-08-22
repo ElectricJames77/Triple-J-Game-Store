@@ -47,7 +47,9 @@ function GameStore({ searchTerm }) {
 
   const top2and3Games = sortedGames.slice(1, 3);
 
-  const remainingGames = sortedGames.slice(3, gamesToShow);
+  const remainingGames = searchTerm
+    ? sortedGames
+    : sortedGames.slice(3, gamesToShow);
 
   const gamesToDisplay = searchTerm
     ? remainingGames.filter((game) => game.title.includes(searchTerm))
@@ -74,8 +76,7 @@ function GameStore({ searchTerm }) {
         <h1 className="headerTripleJ-store">Triple J</h1>
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
-
-        {top1Game && (
+        {top1Game && !searchTerm && (
           <div className="top1Game">
             <h2>Top #1 Game</h2>
             <div className="top1Singlur" key={top1Game.id}>
@@ -114,49 +115,50 @@ function GameStore({ searchTerm }) {
           </div>
         )}
         <br />
-
-        <div className="top2and3Games">
-          <h2 className="top2and3Title active">Top 2 and 3 Games</h2>
-          {top2and3Games.map((game) => (
-            <div className="top2and3GameSinglur" key={game.id}>
-              <h3 className="top2and3GameTitle-store">{game.title}</h3>
-              <div className="top2and3GameImageContainer-store">
-                <img
-                  className="top2and3GameImage-store"
-                  src={game.imageUrl}
-                  alt={game.title}
-                  style={{ width: "300px" }}
-                />
-              </div>
-              <div className="top2and3GameInfo-store">
-                Genre: {game.genre}
-                <br />
-                Rating: {game.totalRating}/100
-                <br />
-                {/* Number of ratings: {game.ratingsCount}
+        {!searchTerm && (
+          <div className="top2and3Games">
+            <h2 className="top2and3Title active">Top 2 and 3 Games</h2>
+            {top2and3Games.map((game) => (
+              <div className="top2and3GameSinglur" key={game.id}>
+                <h3 className="top2and3GameTitle-store">{game.title}</h3>
+                <div className="top2and3GameImageContainer-store">
+                  <img
+                    className="top2and3GameImage-store"
+                    src={game.imageUrl}
+                    alt={game.title}
+                    style={{ width: "300px" }}
+                  />
+                </div>
+                <div className="top2and3GameInfo-store">
+                  Genre: {game.genre}
+                  <br />
+                  Rating: {game.totalRating}/100
+                  <br />
+                  {/* Number of ratings: {game.ratingsCount}
                 <br /> */}
-                Price: ${game.price}
-                <br />
+                  Price: ${game.price}
+                  <br />
+                </div>
+                <Link to={`/store/${game.id}`}>
+                  <button id="viewGameBttn">View Game</button>
+                </Link>
+                {isLoggedIn && (
+                  <button
+                    onClick={() => addGame(game.id)}
+                    className="addToCartBttn"
+                  >
+                    Add to Cart
+                  </button>
+                )}
               </div>
-              <Link to={`/store/${game.id}`}>
-                <button id="viewGameBttn">View Game</button>
-              </Link>
-              {isLoggedIn && (
-                <button
-                  onClick={() => addGame(game.id)}
-                  className="addToCartBttn"
-                >
-                  Add to Cart
-                </button>
-              )}
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
         <br />
 
         <div className="gameGroup">
           <h2 className="otherTitle active">Other Games</h2>
-          {remainingGames.map((game) => (
+          {gamesToDisplay.map((game) => (
             <div className="gameSinglur" key={game.id}>
               <h3 className="gameTitle-store">{game.title}</h3>
               <div className="gameImageContainer-store">
