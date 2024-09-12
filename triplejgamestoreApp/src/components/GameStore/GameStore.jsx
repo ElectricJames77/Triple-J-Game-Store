@@ -6,6 +6,8 @@ import AuthHook from "../AuthHooks/AuthHook";
 import { CartContext } from "../../CartContext";
 import "./GameStore.css";
 import { addGameToCart } from "../../LinkURL";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
 
 function GameStore({ searchTerm }) {
   const [games, setAllGames] = useState([]);
@@ -13,13 +15,11 @@ function GameStore({ searchTerm }) {
   const [error, setError] = useState(null);
   const [gamesToShow, setGamesToShow] = useState(7);
   const navigate = useNavigate();
-  const [searchParam, setSearchParam] = useState("");
   const { isLoggedIn } = AuthHook();
   const { addOneToCart } = useContext(CartContext);
+  const [isOpen, setIsOpen] = useState(false); // For popup
 
-  const API_URL =
-    "https://triplej-gamestore-2bf9fca17274.herokuapp.com/api/games"; //Games URL
-
+  const API_URL = "https://triplej-gamestore-2bf9fca17274.herokuapp.com/api/games";
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
 
@@ -42,25 +42,18 @@ function GameStore({ searchTerm }) {
   }, []);
 
   const sortedGames = [...games].sort((a, b) => b.totalRating - a.totalRating);
-
   const top1Game = sortedGames[0];
-
   const top2and3Games = sortedGames.slice(1, 3);
-
-  const remainingGames = searchTerm
-    ? sortedGames
-    : sortedGames.slice(3, gamesToShow);
-
-  const gamesToDisplay = searchTerm
-    ? remainingGames.filter((game) => game.title.includes(searchTerm))
-    : remainingGames;
+  const remainingGames = searchTerm ? sortedGames : sortedGames.slice(3, gamesToShow);
+  const gamesToDisplay = searchTerm ? remainingGames.filter((game) => game.title.includes(searchTerm)) : remainingGames;
 
   async function addGame(gameId) {
     try {
       const data = await addGameToCart(userId, token, gameId);
+      setIsOpen(true);
       setLoading(false);
     } catch (err) {
-      console.error("Error fetching cart games", err);
+      console.error("Error adding game to cart", err);
       setError(err);
       setLoading(false);
     }
@@ -68,6 +61,10 @@ function GameStore({ searchTerm }) {
 
   const showMoreGames = () => {
     setGamesToShow(gamesToShow + 7);
+  };
+
+  const handleClosePopup = () => {
+    setIsOpen(false);
   };
 
   return (
@@ -95,8 +92,6 @@ function GameStore({ searchTerm }) {
                 <br />
                 Rating: {top1Game.totalRating}/100
                 <br />
-                {/* Number of ratings: {top1Game.ratingsCount}
-              <br /> */}
                 Price: ${top1Game.price}
                 <br />
               </div>
@@ -104,12 +99,31 @@ function GameStore({ searchTerm }) {
                 <button id="viewGameBttn">View Game</button>
               </Link>
               {isLoggedIn && (
-                <button
-                  onClick={() => addGame(top1Game.id)}
-                  className="addToCartBttn"
-                >
-                  Add to Cart
-                </button>
+                <>
+                  <button
+                    onClick={async () => {
+                      await addGame(top1Game.id);
+                    }}
+                    className="addToCartBttn"
+                  >
+                    Add to Cart
+                  </button>
+                  <Popup open={isOpen} onClose={handleClosePopup} >
+                    <div
+                      style={{
+                        padding: "40px",
+                        backgroundColor: "lightgrey",
+                        borderRadius: "10px",
+                        font: "Arial",
+                        fontSize: "24px",
+                        textAlign: "center",
+                        border: "1px solid black",
+                      }}
+                    >
+                      Game Added
+                    </div>
+                  </Popup>
+                </>
               )}
             </div>
           </div>
@@ -134,8 +148,6 @@ function GameStore({ searchTerm }) {
                   <br />
                   Rating: {game.totalRating}/100
                   <br />
-                  {/* Number of ratings: {game.ratingsCount}
-                <br /> */}
                   Price: ${game.price}
                   <br />
                 </div>
@@ -144,7 +156,7 @@ function GameStore({ searchTerm }) {
                 </Link>
                 {isLoggedIn && (
                   <button
-                    onClick={() => addGame(game.id)}
+                    onClick={async () => await addGame(game.id)}
                     className="addToCartBttn"
                   >
                     Add to Cart
@@ -155,7 +167,6 @@ function GameStore({ searchTerm }) {
           </div>
         )}
         <br />
-
         <div className="gameGroup">
           <h2 className="otherTitle active">Other Games</h2>
           {gamesToDisplay.map((game) => (
@@ -174,8 +185,6 @@ function GameStore({ searchTerm }) {
                 <br />
                 Rating: {game.totalRating}/100
                 <br />
-                {/* Number of ratings: {game.ratingsCount}
-                <br /> */}
                 Price: ${game.price}
                 <br />
               </div>
@@ -184,7 +193,7 @@ function GameStore({ searchTerm }) {
               </Link>
               {isLoggedIn && (
                 <button
-                  onClick={() => addGame(game.id)}
+                  onClick={async () => await addGame(game.id)}
                   className="addToCartBttn"
                 >
                   Add to Cart
@@ -193,7 +202,6 @@ function GameStore({ searchTerm }) {
             </div>
           ))}
         </div>
-
         {gamesToShow < games.length && (
           <button onClick={showMoreGames} className="showMoreBttn-store">
             Show More Games
